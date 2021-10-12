@@ -1,6 +1,8 @@
 
 ![Vue面试题.png](https://cdn.nlark.com/yuque/0/2021/png/1500604/1621612367141-93b24efc-8b06-4c10-8259-586cd8c6c5d5.png?x-oss-process=image%2Fresize%2Cw_1038)
 
+## Vue面试题推荐配合鲨鱼哥掘金文章-最全的Vue面试题 一起看
+
 ## 一、Vue 基础
 
 ### 1. Vue的基本原理

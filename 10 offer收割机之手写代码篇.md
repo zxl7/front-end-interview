@@ -1,6 +1,9 @@
 
 ![手写代码面试题.png](https://cdn.nlark.com/yuque/0/2021/png/1500604/1621676946378-71d6b405-ef4e-42e4-9e42-f9c9aafcefb6.png?x-oss-process=image%2Fresize%2Cw_1038)
 
+
+##手写系列建议配合鲨鱼哥的掘金手写面试题文章一起看（更多更全）
+
 ## 一、JavaScript 基础
 
 ### 1. 手写 Object.create 

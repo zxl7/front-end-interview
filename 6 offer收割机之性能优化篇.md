@@ -1,7 +1,7 @@
 
 ![性能优化面试题.png](https://cdn.nlark.com/yuque/0/2021/png/1500604/1621611602044-9eff4f96-7acb-4c4a-927e-fa254bf23418.png?x-oss-process=image%2Fresize%2Cw_1038)
 
-## 一、CDN
+## 一、CDN---了解即可
 
 ### 1. CDN的概念
 
