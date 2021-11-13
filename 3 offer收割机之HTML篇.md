@@ -39,9 +39,9 @@ src和href都是**用来引用外部的资源**，它们的区别如下：
 <footer></footer>  底部
 ```
 
-### 3. DOCTYPE(⽂档类型) 的作⽤
+### 3. DOCTYPE(文档类型) 的作用
 
-DOCTYPE是HTML5中一种标准通用标记语言的文档类型声明，它的目的是**告诉浏览器（解析器）应该以什么样（html或xhtml）的文档类型定义****来解析文档**，不同的渲染模式会影响浏览器对 CSS 代码甚⾄ JavaScript 脚本的解析。它必须声明在HTML⽂档的第⼀⾏。
+DOCTYPE是HTML5中一种标准通用标记语言的文档类型声明，它的目的是**告诉浏览器（解析器）应该以什么样（html或xhtml）的文档类型定义**来解析文档，不同的渲染模式会影响浏览器对 CSS 代码甚⾄ JavaScript 脚本的解析。它必须声明在HTML⽂档的第⼀⾏。
 
 
 
@@ -67,9 +67,9 @@ DOCTYPE是HTML5中一种标准通用标记语言的文档类型声明，它的�
 **defer 和 async属性都是去异步加载外部的JS脚本文件，它们都不会阻塞页面的解析**，其区别如下：
 
 - **执行顺序：**多个带async属性的标签，不能保证加载的顺序；多个带defer属性的标签，按照加载顺序执行；
-- **脚本是否并行执行：**async属性，表示**后续文档的加载和执行与js脚本的加载和执行是并行进行的**，即异步执行；defer属性，加载后续文档的过程和js脚本的加载(此时仅加载不执行)是并行进行的(异步)，js脚本需要等到文档所有元素解析完成之后才执行，DOMContentLoaded事件触发执行之前。
+- **脚本是否并行执行：**async属性，表示后续文档的加载和执行**与js脚本的加载和执行是并行进行的**，即异步执行；defer属性，加载后续文档的过程和**js脚本的加载(此时仅加载不执行)是并行进行的**(异步)。js脚本需要等到文档所有元素解析完成之后才执行，DOMContentLoaded事件触发执行之前完成执行。
 
-### 5. 常⽤的meta标签有哪些
+### 5. 常用的meta标签有哪些
 
 `meta` 标签由 `name` 和 `content` 属性定义，**用来描述网页文档的属性**，比如网页的作者，网页描述，关键词等，除了HTTP标准固定了一些`name`作为大家使用的共识，开发者还可以自定义name。
 
@@ -79,31 +79,31 @@ DOCTYPE是HTML5中一种标准通用标记语言的文档类型声明，它的�
 
 （1）`charset`，用来描述HTML文档的编码类型：
 
-```
+```html
 <meta charset="UTF-8" >
 ```
 
 （2） `keywords`，页面关键词：
 
-```
+```html
 <meta name="keywords" content="关键词" />
 ```
 
 （3）`description`，页面描述：
 
-```
+```html
 <meta name="description" content="页面描述内容" />
 ```
 
 （4）`refresh`，页面重定向和刷新：
 
-```
+```html
 <meta http-equiv="refresh" content="0;url=" />
 ```
 
 （5）`viewport`，适配移动端，可以控制视口的大小和比例：
 
-```
+```html
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 ```
 
@@ -120,7 +120,7 @@ DOCTYPE是HTML5中一种标准通用标记语言的文档类型声明，它的�
 
 （6）搜索引擎索引方式：
 
-```
+```html
 <meta name="robots" content="index,follow" />
 ```
 
@@ -148,7 +148,7 @@ DOCTYPE是HTML5中一种标准通用标记语言的文档类型声明，它的�
 
 （1） audio：音频
 
-```
+```html
 <audio src='' controls autoplay loop='true'></audio>
 ```
 
@@ -162,7 +162,7 @@ DOCTYPE是HTML5中一种标准通用标记语言的文档类型声明，它的�
 
 （2）video视频
 
-```
+```html
 <video src='' poster='imgs/aa.jpg' controls></video>
 ```
 
@@ -179,7 +179,7 @@ DOCTYPE是HTML5中一种标准通用标记语言的文档类型声明，它的�
 
 因为浏览器对视频格式支持程度不一样，为了能够兼容不同的浏览器，可以通过source来指定视频源。
 
-```
+```html
 <video>
     <source src='aa.flv' type='video/flv'></source>
     <source src='aa.mp4' type='video/mp4'></source>
@@ -241,8 +241,8 @@ DOCTYPE是HTML5中一种标准通用标记语言的文档类型声明，它的�
 
 #### 5.DOM查询操作
 
-- document.querySelector()
-- document.querySelectorAll()
+- `document.querySelector()`
+- `document.querySelectorAll()`
 
 它们选择的对象可以是标签，可以是类(需要加点)，可以是ID(需要加#)
 
@@ -257,13 +257,13 @@ HTML5 提供了两种在客户端存储数据的新方法：
 
 - 拖放：拖放是一种常见的特性，即抓取对象以后拖到另一个位置。设置元素可拖放：
 
-```
+```html
 <img draggable="true" />
 ```
 
 - 画布（canvas ）： canvas 元素使用 JavaScript 在网页上绘制图像。画布是一个矩形区域，可以控制其每一像素。canvas 拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。
 
-```
+```html
 <canvas id="myCanvas" width="200" height="100"></canvas>
 ```
 
@@ -297,7 +297,7 @@ HTML5 提供了两种在客户端存储数据的新方法：
 
 响应式页面中经常用到根据屏幕密度设置不同的图片。这时就用到了 img 标签的srcset属性。srcset属性用于设置不同屏幕密度下，img 会自动加载不同的图片。用法如下：
 
-```
+```html
 <img src="image-128.png" srcset="image-256.png 2x" />
 ```
 
@@ -363,7 +363,7 @@ sizes就是指默认显示128px, 如果视区宽度大于360px, 则显示340px�
 
 （1）创建一个和 html 同名的 manifest 文件，然后在页面头部加入 manifest 属性：
 
-```
+```html
 <html lang="en" manifest="index.manifest">
 ```
 
@@ -452,14 +452,14 @@ label标签来定义表单控件的关系：当用户选择label标签时，浏�
 
 - 使用方法1：
 
-```
+```html
 <label for="mobile">Number:</label>
 <input type="text" id="mobile"/>
 ```
 
 - 使用方法2：
 
-```
+```html
 <label>Date:<input type="text"/></label>
 ```
 
