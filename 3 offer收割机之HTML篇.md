@@ -5,7 +5,7 @@
 src 和 href 都是**用来引用外部的资源**，它们的区别如下：
 
 - **src：** 表示对资源的引用，它指向的内容会嵌入到当前标签所在的位置。src 会将其指向的资源下载并应⽤到⽂档内，如请求 js 脚本。当浏览器解析到该元素时，会暂停其他资源的下载和处理，直到将该资源加载、编译、执⾏完毕，所以⼀般 js 脚本会放在页面底部。
-- **href：** 表示超文本引用，它指向一些网络资源，建立和当前元素或本文档的链接关系。当浏览器识别到它他指向的⽂件时，就会并⾏下载资源，不会停⽌对当前⽂档的处理。 常用在 a、link 等标签上。
+- **href：** 表示超文本引用，它指向一些网络资源，建立和当前元素或本文档的链接关系。当浏览器识别到它他指向的⽂件时，就会并行下载资源，不会停⽌对当前⽂档的处理。 常用在 a、link 等标签上。
 
 ### 2. 对 HTML 语义化的理解
 
@@ -18,7 +18,7 @@ src 和 href 都是**用来引用外部的资源**，它们的区别如下：
 
 常见的语义化标签：
 
-```
+```html
 <header></header>  头部
 
 <nav></nav>  导航栏
@@ -34,11 +34,11 @@ src 和 href 都是**用来引用外部的资源**，它们的区别如下：
 <footer></footer>  底部
 ```
 
-### 3. DOCTYPE(⽂档类型) 的作⽤
+### 3. DOCTYPE(文档类型) 的作⽤
 
-DOCTYPE 是 HTML5 中一种标准通用标记语言的文档类型声明，它的目的是**告诉浏览器（解析器）应该以什么样（html 或 xhtml）的文档类型定义\*\***来解析文档\*\*，不同的渲染模式会影响浏览器对 CSS 代码甚⾄ JavaScript 脚本的解析。它必须声明在 HTML ⽂档的第⼀⾏。
+DOCTYPE 是 HTML5 中一种标准通用标记语言的文档类型声明，它的目的是**告诉浏览器（解析器）应该以什么样（html 或 xhtml）的文档类型定义**来解析文档，不同的渲染模式会影响浏览器对 CSS 代码甚⾄ JavaScript 脚本的解析。它必须声明在 HTML ⽂档的第⼀⾏。
 
-浏览器渲染页面的两种模式（可通过 document.compatMode 获取，比如，语雀官网的文档类型是**CSS1Compat**）：
+浏览器渲染页面的两种模式（可通过 `document.compatMode` 获取，比如，语雀官网的文档类型是**CSS1Compat**）：
 
 - **CSS1Compat：标准模式（Strick mode）**，默认模式，浏览器使用 W3C 的标准解析渲染页面。在标准模式中，浏览器以其支持的最高标准呈现页面。
 - **BackCompat：怪异模式(混杂模式)(Quick mode)**，浏览器使用自己的怪异模式解析渲染页面。在怪异模式中，页面以一种比较宽松的向后兼容的方式显示。
@@ -56,9 +56,9 @@ DOCTYPE 是 HTML5 中一种标准通用标记语言的文档类型声明，它�
 **defer 和 async 属性都是去异步加载外部的 JS 脚本文件，它们都不会阻塞页面的解析**，其区别如下：
 
 - **执行顺序：**多个带 async 属性的标签，不能保证加载的顺序；多个带 defer 属性的标签，按照加载顺序执行；
-- **脚本是否并行执行：**async 属性，表示**后续文档的加载和执行与 js 脚本的加载和执行是并行进行的**，即异步执行；defer 属性，加载后续文档的过程和 js 脚本的加载(此时仅加载不执行)是并行进行的(异步)，js 脚本需要等到文档所有元素解析完成之后才执行，DOMContentLoaded 事件触发执行之前。
+- **脚本是否并行执行：**async 属性，表示**后续文档的加载和执行与 js 脚本的加载和执行是并行进行的**，即异步执行；defer 属性，**加载后续文档的过程和 js 脚本的加载**(此时仅加载不执行)**是并行进行的**(异步)，js 脚本需要等到文档所有元素解析完成之后才执行，DOMContentLoaded 事件触发执行之前。
 
-### 5. 常⽤的 meta 标签有哪些
+### 5. 常用的 meta 标签有哪些
 
 `meta` 标签由 `name` 和 `content` 属性定义，**用来描述网页文档的属性**，比如网页的作者，网页描述，关键词等，除了 HTTP 标准固定了一些`name`作为大家使用的共识，开发者还可以自定义 name。
 
@@ -66,31 +66,31 @@ DOCTYPE 是 HTML5 中一种标准通用标记语言的文档类型声明，它�
 
 （1）`charset`，用来描述 HTML 文档的编码类型：
 
-```
+```html
 <meta charset="UTF-8" >
 ```
 
 （2） `keywords`，页面关键词：
 
-```
+```html
 <meta name="keywords" content="关键词" />
 ```
 
 （3）`description`，页面描述：
 
-```
+```html
 <meta name="description" content="页面描述内容" />
 ```
 
 （4）`refresh`，页面重定向和刷新：
 
-```
+```html
 <meta http-equiv="refresh" content="0;url=" />
 ```
 
 （5）`viewport`，适配移动端，可以控制视口的大小和比例：
 
-```
+```html
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 ```
 
@@ -105,7 +105,7 @@ DOCTYPE 是 HTML5 中一种标准通用标记语言的文档类型声明，它�
 
 （6）搜索引擎索引方式：
 
-```
+```html
 <meta name="robots" content="index,follow" />
 ```
 
@@ -133,7 +133,7 @@ DOCTYPE 是 HTML5 中一种标准通用标记语言的文档类型声明，它�
 
 （1） audio：音频
 
-```
+```html
 <audio src='' controls autoplay loop='true'></audio>
 ```
 
@@ -145,7 +145,7 @@ DOCTYPE 是 HTML5 中一种标准通用标记语言的文档类型声明，它�
 
 （2）video 视频
 
-```
+```html
 <video src='' poster='imgs/aa.jpg' controls></video>
 ```
 
@@ -160,7 +160,7 @@ DOCTYPE 是 HTML5 中一种标准通用标记语言的文档类型声明，它�
 
 因为浏览器对视频格式支持程度不一样，为了能够兼容不同的浏览器，可以通过 source 来指定视频源。
 
-```
+```html
 <video>
     <source src='aa.flv' type='video/flv'></source>
     <source src='aa.mp4' type='video/mp4'></source>
@@ -216,8 +216,8 @@ DOCTYPE 是 HTML5 中一种标准通用标记语言的文档类型声明，它�
 
 #### 5.DOM 查询操作
 
-- document.querySelector()
-- document.querySelectorAll()
+- `document.querySelector()`
+- `document.querySelectorAll()`
 
 它们选择的对象可以是标签，可以是类(需要加点)，可以是 ID(需要加#)
 
@@ -232,13 +232,13 @@ HTML5 提供了两种在客户端存储数据的新方法：
 
 - 拖放：拖放是一种常见的特性，即抓取对象以后拖到另一个位置。设置元素可拖放：
 
-```
+```html
 <img draggable="true" />
 ```
 
 - 画布（canvas ）： canvas 元素使用 JavaScript 在网页上绘制图像。画布是一个矩形区域，可以控制其每一像素。canvas 拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。
 
-```
+```html
 <canvas id="myCanvas" width="200" height="100"></canvas>
 ```
 
@@ -268,7 +268,7 @@ HTML5 提供了两种在客户端存储数据的新方法：
 
 响应式页面中经常用到根据屏幕密度设置不同的图片。这时就用到了 img 标签的 srcset 属性。srcset 属性用于设置不同屏幕密度下，img 会自动加载不同的图片。用法如下：
 
-```
+```html
 <img src="image-128.png" srcset="image-256.png 2x" />
 ```
 
@@ -276,7 +276,7 @@ HTML5 提供了两种在客户端存储数据的新方法：
 
 按照上面的实现，不同的屏幕密度都要设置图片地址，目前的屏幕密度有 1x,2x,3x,4x 四种，如果每一个图片都设置 4 张图片，加载就会很慢。所以就有了新的 srcset 标准。代码如下：
 
-```
+```html
 <img src="image-128.png"
      srcset="image-128.png 128w, image-256.png 256w, image-512.png 512w"
      sizes="(max-width: 360px) 340px, 128px" />
@@ -304,7 +304,7 @@ sizes 就是指默认显示 128px, 如果视区宽度大于 360px, 则显示 340
 
 ### 9. 说一下 web worker
 
-在 HTML 页面中，如果在执行脚本时，页面的状态是不可相应的，直到脚本执行完成后，页面才变成可相应。web worker 是运行在后台的 js，独立于其他脚本，不会影响页面的性能。 并且通过 postMessage 将结果回传到主线程。这样在进行复杂操作的时候，就不会阻塞主线程了。
+在 HTML 页面中，如果在执行脚本时，页面的状态是不可响应的，直到脚本执行完成后，页面才变成可响应。web worker 是运行在后台的 js，独立于其他脚本，不会影响页面的性能。 并且通过 postMessage 将结果回传到主线程。这样在进行复杂操作的时候，就不会阻塞主线程了。
 
 如何创建 web worker：
 
@@ -322,7 +322,7 @@ sizes 就是指默认显示 128px, 如果视区宽度大于 360px, 则显示 340
 
 （1）创建一个和 html 同名的 manifest 文件，然后在页面头部加入 manifest 属性：
 
-```
+```html
 <html lang="en" manifest="index.manifest">
 ```
 
@@ -403,14 +403,14 @@ label 标签来定义表单控件的关系：当用户选择 label 标签时，�
 
 - 使用方法 1：
 
-```
+```html
 <label for="mobile">Number:</label>
 <input type="text" id="mobile"/>
 ```
 
 - 使用方法 2：
 
-```
+```html
 <label>Date:<input type="text"/></label>
 ```
 
