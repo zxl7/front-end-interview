@@ -40,13 +40,13 @@ JavaScript共有八种数据类型，分别是 Undefined、Null、Boolean、Numb
 在操作系统中，内存被分为栈区和堆区：
 
 - 栈区内存由编译器自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。 
-- 堆区内存一般由开发着分配释放，若开发者不释放，程序结束时可能由垃圾回收机制回收。
+- 堆区内存一般由开发者分配释放，若开发者不释放，程序结束时可能由垃圾回收机制回收。
 
 ### 2. 数据类型检测的方式有哪些
 
 **（1）typeof**
 
-```
+```js
 console.log(typeof 2);               // number
 console.log(typeof true);            // boolean
 console.log(typeof 'str');           // string
@@ -63,9 +63,9 @@ console.log(typeof null);            // object
 
 **（2）instanceof**
 
-`instanceof`可以正确判断对象的类型，**其内部运行机制是****判断在其原型链中能否找到该类型的原型**。
+`instanceof`可以正确判断对象的类型，其内部运行机制是**判断在其原型链中能否找到该类型的原型**。
 
-```
+```js
 console.log(2 instanceof Number);                    // false
 console.log(true instanceof Boolean);                // false 
 console.log('str' instanceof String);                // false 
@@ -81,7 +81,7 @@ console.log({} instanceof Object);                   // true
 
 **（3） constructor**
 
-```
+```js
 console.log((2).constructor === Number); // true
 console.log((true).constructor === Boolean); // true
 console.log(('str').constructor === String); // true
@@ -92,7 +92,7 @@ console.log(({}).constructor === Object); // true
 
 `constructor`有两个作用，一是判断数据的类型，二是对象实例通过 `constrcutor` 对象访问它的构造函数。需要注意，如果创建一个对象来改变它的原型，`constructor`就不能用来判断数据类型了：
 
-```
+```js
 function Fn(){};
  
 Fn.prototype = new Array();
@@ -107,7 +107,7 @@ console.log(f.constructor===Array); // true
 
 `Object.prototype.toString.call()` 使用 Object 对象的原型方法 toString 来判断数据类型：
 
-```
+```js
 var a = Object.prototype.toString;
  
 console.log(a.call(2));
@@ -130,31 +130,31 @@ console.log(a.call(null));
 
 - 通过Object.prototype.toString.call()做判断
 
-```
+```js
 Object.prototype.toString.call(obj).slice(8,-1) === 'Array';
 ```
 
 - 通过原型链做判断
 
-```
+```js
 obj.__proto__ === Array.prototype;
 ```
 
 - 通过ES6的Array.isArray()做判断
 
-```
-Array.isArrray(obj);
+```js
+Array.isArray(obj);
 ```
 
 - 通过instanceof做判断
 
-```
+```js
 obj instanceof Array
 ```
 
 - 通过Array.prototype.isPrototypeOf
 
-```
+```js
 Array.prototype.isPrototypeOf(obj)
 ```
 
@@ -207,7 +207,7 @@ typeof null 的结果是Object。
 
  instanceof 运算符用于判断构造函数的 prototype 属性是否出现在对象的原型链中的任何位置。
 
-```
+```js
 function myInstanceof(left, right) {
   // 获取对象的原型
   let proto = Object.getPrototypeOf(left)
@@ -228,14 +228,14 @@ function myInstanceof(left, right) {
 
 在开发过程中遇到类似这样的问题：
 
-```
+```js
 let n1 = 0.1, n2 = 0.2
 console.log(n1 + n2)  // 0.30000000000000004
 ```
 
 这里得到的不是想要的结果，要想等于0.3，就要把它进行转化：
 
-```
+```js
 (n1 + n2).toFixed(2) // 注意，toFixed为四舍五入
 ```
 
@@ -313,7 +313,7 @@ IEEE标准规定了一个偏移量，对于指数部分，每次都加这个偏�
 
 对于这个问题，一个直接的解决方法就是设置一个误差范围，通常称为“机器精度”。对JavaScript来说，这个值通常为2-52，在ES6中，提供了`Number.EPSILON`属性，而它的值就是2-52，只要判断`0.1+0.2-0.3`是否小于`Number.EPSILON`，如果小于，就可以判断为0.1+0.2 ===0.3
 
-```
+```js
 function numberepsilon(arg1,arg2){                   
   return Math.abs(arg1 - arg2) < Number.EPSILON;        
 }        
@@ -329,11 +329,11 @@ console.log(numberepsilon(0.1 + 0.2, 0.3)); // true
 
 NaN 指“不是一个数字”（not a number），NaN 是一个“警戒值”（sentinel value，有特殊用途的常规值），用于指出数字类型中的错误情况，即“执行数学运算没有成功，这是失败后返回的结果”。
 
-```
+```js
 typeof NaN; // "number"
 ```
 
-NaN 是一个特殊值，它和自身不相等，是唯一一个非自反（自反，reflexive，即 x === x 不成立）的值。而 NaN !== NaN 为 true。
+NaN 是一个特殊值，它和自身不相等，是唯一一个非自反（自反，reflexive，即 `x === x` 不成立）的值。而 `NaN  !== NaN` 为 true。
 
 ### 10. isNaN 和 Number.isNaN 函数的区别？
 
@@ -394,11 +394,7 @@ NaN 是一个特殊值，它和自身不相等，是唯一一个非自反（自�
 - Symbol 类型的值不能转换为数字，会报错。
 - 对象（包括数组）会首先被转换为相应的基本类型值，如果返回的是非数字的基本类型值，则再遵循以上规则将其强制转换为数字。
 
-
-
 为了将值转换为相应的基本类型值，抽象操作 ToPrimitive 会首先（通过内部操作 DefaultValue）检查该值是否有valueOf()方法。如果有并且返回基本类型值，就使用该值进行强制类型转换。如果没有就使用 toString() 的返回值（如果存在）来进行强制类型转换。
-
-
 
 如果 valueOf() 和 toString() 均不返回基本类型值，会产生 TypeError 错误。
 
@@ -433,7 +429,7 @@ NaN 是一个特殊值，它和自身不相等，是唯一一个非自反（自�
 
 || 和 && 返回它们其中一个操作数的值，而非条件判断的结果
 
-### 16. Object.is() 与比较操作符 “===”、“==” 的区别？
+### 16. Object.is() 与比较操作符 `===`、`==` 的区别？
 
 - 使用双等号（==）进行相等判断时，如果两边的类型不一致，则会进行强制类型转化后再进行比较。
 - 使用三等号（===）进行相等判断时，如果两边的类型不一致时，不会做强制类型准换，直接返回 false。
@@ -443,7 +439,7 @@ NaN 是一个特殊值，它和自身不相等，是唯一一个非自反（自�
 
 在 JavaScript 中，基本类型是没有属性和方法的，但是为了便于操作基本类型的值，在调用基本类型的属性或方法时 JavaScript 会在后台隐式地将基本类型的值转换为对象，如：
 
-```
+```js
 const a = "abc";
 a.length; // 3
 a.toUpperCase(); // "ABC"
@@ -455,14 +451,14 @@ a.toUpperCase(); // "ABC"
 
 JavaScript也可以使用`Object`函数显式地将基本类型转换为包装类型：
 
-```
+```js
 var a = 'abc'
 Object(a) // String {"abc"}
 ```
 
 也可以使用`valueOf`方法将包装类型倒转成基本类型：
 
-```
+```js
 var a = 'abc'
 var b = Object(a)
 var c = b.valueOf() // 'abc'
@@ -470,7 +466,7 @@ var c = b.valueOf() // 'abc'
 
 看看如下代码会打印出什么：
 
-```
+```js
 var a = new Boolean( false );
 if (!a) {
     console.log( "Oops" ); // never runs
@@ -483,7 +479,7 @@ if (!a) {
 
 首先要介绍`ToPrimitive`方法，这是 JavaScript 中每个值隐含的自带的方法，用来将值 （无论是基本类型值还是对象）转换为基本类型值。如果值为基本类型，则直接返回值本身；如果值为对象，其看起来大概是这样：
 
-```
+```js
 /**
 * @obj 需要转换的对象
 * @type 期望的结果类型
@@ -493,13 +489,13 @@ ToPrimitive(obj,type)
 
 `type`的值为`number`或者`string`。
 
-**（1）当**`**type**`**为**`**number**`**时规则如下：**
+**（1）当**`type`**为**`number`**时规则如下：**
 
 - 调用`obj`的`valueOf`方法，如果为原始值，则返回，否则下一步；
 - 调用`obj`的`toString`方法，后续同上；
 - 抛出`TypeError` 异常。
 
-**（2）当**`**type**`**为**`**string**`**时规则如下：**
+**（2）当**`type`**为**`string`**时规则如下：**
 
 - 调用`obj`的`toString`方法，如果为原始值，则返回，否则下一步；
 - 调用`obj`的`valueOf`方法，后续同上；
@@ -514,7 +510,7 @@ ToPrimitive(obj,type)
 
 总结上面的规则，对于 Date 以外的对象，转换为基本类型的大概规则可以概括为一个函数：
 
-```
+```js
 var objToNumber = value => Number(value.valueOf().toString())
 objToNumber([]) === 0
 objToNumber({}) === NaN
@@ -528,7 +524,7 @@ objToNumber({}) === NaN
 
 1. +操作符`+`操作符的两边有至少一个`string`类型变量时，两边的变量都会被隐式转换为字符串；其他情况下两边的变量都会被转换为数字。
 
-```
+```js
 1 + '23' // '123'
  1 + false // 1 
  1 + Symbol() // Uncaught TypeError: Cannot convert a Symbol value to a number
@@ -538,48 +534,48 @@ objToNumber({}) === NaN
 
 2. -、*、\操作符NaN也是一个数字
 
-```
+```js
 1 * '23' // 23
  1 * false // 0
  1 / 'aa' // NaN
 ```
 
-3. 对于**`**==**`**操作符
+3. 对于**`==`**操作符
 
 操作符两边的值都尽量转成`number`：
 
-```
+```js
 3 == true // false, 3 转为number为3，true转为number为1
 '0' == false //true, '0'转为number为0，false转为number为0
 '0' == 0 // '0'转为number为0
 ```
 
-4. 对于**`**<**`**和**`**>**`**比较符
+4. 对于**`<`**和**`>`**比较符
 
 如果两边都是字符串，则比较字母表顺序：
 
-```
+```js
 'ca' < 'bd' // false
 'a' < 'b' // true
 ```
 
 其他情况下，转换为数字再比较：
 
-```
+```js
 '12' < 13 // true
 false > -1 // true
 ```
 
 以上说的是基本类型的隐式转换，而对象会被`ToPrimitive`转换为基本类型再进行转换：
 
-```
+```js
 var a = {}
 a > 2 // false
 ```
 
 其对比过程如下：
 
-```
+```js
 a.valueOf() // {}, 上面提到过，ToPrimitive默认type为number，所以先valueOf，结果还是个对象，下一步
 a.toString() // "[object Object]"，现在是一个字符串了
 Number(a.toString()) // NaN，根据上面 < 和 > 操作符的规则，要转换成数字
@@ -588,7 +584,7 @@ NaN > 2 //false，得出比较结果
 
 又比如：
 
-```
+```js
 var a = {name:'Jack'}
 var b = {age: 18}
 a + b // "[object Object][object Object]"
@@ -596,7 +592,7 @@ a + b // "[object Object][object Object]"
 
 运算过程如下：
 
-```
+```js
 a.valueOf() // {}，上面提到过，ToPrimitive默认type为number，所以先valueOf，结果还是个对象，下一步
 a.toString() // "[object Object]"
 b.valueOf() // 同理
@@ -618,13 +614,13 @@ a + b // "[object Object][object Object]"
 
 ### 20. 为什么会有**BigInt**的提案？ 
 
-JavaScript中Number.MAX_SAFE_INTEGER表示最⼤安全数字，计算结果是9007199254740991，即在这个数范围内不会出现精度丢失（⼩数除外）。但是⼀旦超过这个范围，js就会出现计算不准确的情况，这在⼤数计算的时候不得不依靠⼀些第三⽅库进⾏解决，因此官⽅提出了BigInt来解决此问题。 
+JavaScript中Number.MAX_SAFE_INTEGER表示最大安全数字，计算结果是9007199254740991，即在这个数范围内不会出现精度丢失（小数除外）。但是⼀旦超过这个范围，js就会出现计算不准确的情况，这在⼤数计算的时候不得不依靠⼀些第三⽅库进⾏解决，因此官⽅提出了BigInt来解决此问题。 
 
-### 21. object.assign和扩展运算法是深拷贝还是浅拷贝，两者区别
+### 21. object.assign和扩展运算法是深拷贝还是浅拷贝，浅拷贝与深拷贝的区别
 
 扩展运算符：
 
-```
+```js
 let outObj = {
   inObj: {a: 1, b: 2}
 }
@@ -635,7 +631,7 @@ console.log(outObj) // {inObj: {a: 2, b: 2}}
 
 Object.assign():
 
-```
+```js
 let outObj = {
   inObj: {a: 1, b: 2}
 }
@@ -643,6 +639,27 @@ let newObj = Object.assign({}, outObj)
 newObj.inObj.a = 2
 console.log(outObj) // {inObj: {a: 2, b: 2}}
 ```
+
+如上，二者都是浅拷贝，在修改副本对象的嵌套子对象时，原对象的嵌套子对象也发生改变。
+
+- 对象深拷贝常用方法
+  - `JSON.stringify()` 方法将一个 JavaScript 对象或值转换为 JSON 字符串
+  - `JSON.parse()` 方法用来解析JSON字符串，构造由字符串描述的JavaScript值或对象
+
+```js
+let outObj = {
+  inObj: {a: 1, b: 2}
+}
+let newObj = JSON.parse(JSON.stringify(outObj))
+newObj.inObj.a = 2
+console.log(outObj) // {inObj: {a: 1, b: 2}}
+```
+
+- 深拷贝与浅拷贝的区别
+
+![img](https://camo.githubusercontent.com/667a0c19bb77ec41c552350d2c8b4c4d1be9662acdd2f931504f214d00b9876f/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31353835363136392d323665326534613066633861333962342e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f3331302f666f726d61742f77656270)
+
+![img](https://camo.githubusercontent.com/89821ea9eb62e96d8699acc8f24676a542d0ee2d3d8b71816b0f2e96f402c23a/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f31353835363136392d383862643539373565616661613438382e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f3630302f666f726d61742f77656270)
 
 ## 二、ES6
 
@@ -653,7 +670,7 @@ console.log(outObj) // {inObj: {a: 2, b: 2}}
 - 内层变量可能覆盖外层变量
 - 用来计数的循环变量泄露为全局变量
 
-**（2）变量提升：**var存在变量提升，let和const不存在变量提升，即在变量只能在声明之后使用，否在会报错。
+**（2）变量提升：**var存在变量提升，let和const不存在变量提升，即在变量只能在声明之后使用，否则会报错。
 
 **（3）给全局添加属性：**浏览器的全局对象是window，Node的全局对象是global。var声明的变量为全局变量，并且会将该变量添加为全局对象的属性，但是let和const不会。
 
@@ -683,16 +700,16 @@ const保证的并不是变量的值不能改动，而是变量指向的那个内
 
 但对于引用类型的数据（主要是对象和数组）来说，变量指向数据的内存地址，保存的只是一个指针，const只能保证这个指针是固定不变的，至于它指向的数据结构是不是可变的，就完全不能控制了。
 
-### 3. 如果new一个箭头函数的会怎么样
+### 3. 如果new一个箭头函数会怎么样
 
-箭头函数是ES6中的提出来的，它没有prototype，也没有自己的this指向，更不可以使用arguments参数，所以不能New一个箭头函数。
+箭头函数是ES6中提出来的，它没有prototype，也没有自己的this指向，更不可以使用arguments参数，所以不能New一个箭头函数。
 
 
 
 new操作符的实现步骤如下：
 
 1. 创建一个对象
-2. 将构造函数的作用域赋给新对象（也就是将对象的__proto__属性指向构造函数的prototype属性）
+2. 将构造函数的作用域赋给新对象（也就是将对象的`__proto__`属性指向构造函数的`prototype`属性）
 3. 指向构造函数中的代码，构造函数中的this指向该对象（也就是为这个对象添加属性和方法）
 4. 返回新的对象
 
@@ -710,7 +727,7 @@ new操作符的实现步骤如下：
 - 如果函数体的返回值只有一句，可以省略大括号
 - 如果函数体不需要返回值，且只有一句话，可以给这个语句前面加一个void关键字。最常见的就是调用一个函数：
 
-```
+```js
 let fn = () => void doesNotReturn();
 ```
 
@@ -720,7 +737,7 @@ let fn = () => void doesNotReturn();
 
 **（3）箭头函数继承来的this指向永远不会改变**
 
-```
+```js
 var id = 'GLOBAL';
 var obj = {
   id: 'OBJ',
@@ -741,7 +758,7 @@ new obj.b()  // Uncaught TypeError: obj.b is not a constructor
 
 **（4）call()、apply()、bind()等方法不能改变箭头函数中this的指向**
 
-```
+```js
 var id = 'Global';
 let fun1 = () => {
     console.log(this.id)
@@ -772,7 +789,7 @@ fun1.bind({id: 'Obj'})();   // 'Global'
 
 可以⽤Babel理解⼀下箭头函数: 
 
-```
+```js
 // ES6 
 const obj = { 
   getArrow() { 
@@ -785,7 +802,7 @@ const obj = {
 
 转化后：
 
-```
+```js
 // ES5，由 Babel 转译
 var obj = { 
    getArrow: function getArrow() { 
@@ -803,14 +820,14 @@ var obj = {
 
 对象的扩展运算符(...)用于取出参数对象中的所有可遍历属性，拷贝到当前对象之中。
 
-```
+```js
 let bar = { a: 1, b: 2 };
 let baz = { ...bar }; // { a: 1, b: 2 }
 ```
 
 上述方法实际上等价于:
 
-```
+```js
 let bar = { a: 1, b: 2 };
 let baz = Object.assign({}, bar); // { a: 1, b: 2 }
 ```
@@ -821,7 +838,7 @@ let baz = Object.assign({}, bar); // { a: 1, b: 2 }
 
 同样，如果用户自定义的属性，放在扩展运算符后面，则扩展运算符内部的同名属性会被覆盖掉。
 
-```
+```js
 let bar = {a: 1, b: 2};
 let baz = {...bar, ...{a:2, b: 4}};  // {a: 2, b: 4}
 ```
@@ -830,13 +847,13 @@ let baz = {...bar, ...{a:2, b: 4}};  // {a: 2, b: 4}
 
 
 
-需要注意：**扩展运算符对****对象实例的拷贝属于浅拷贝**。
+需要注意：扩展运算符对**对象实例的拷贝属于浅拷贝**。
 
 **（2）数组扩展运算符**
 
 数组的扩展运算符可以将一个数组转为用逗号分隔的参数序列，且每次只能展开一层数组。
 
-```
+```js
 console.log(...[1, 2, 3])
 // 1 2 3
 console.log(...[1, [2, 3, 4], 5])
@@ -847,7 +864,7 @@ console.log(...[1, [2, 3, 4], 5])
 
 - **将数组转换为参数序列**
 
-```
+```js
 function add(x, y) {
   return x + y;
 }
@@ -857,7 +874,7 @@ add(...numbers) // 3
 
 - **复制数组**
 
-```
+```js
 const arr1 = [1, 2];
 const arr2 = [...arr1];
 ```
@@ -866,7 +883,7 @@ const arr2 = [...arr1];
 
 如果想在数组内合并数组，可以这样：
 
-```
+```js
 const arr1 = ['two', 'three'];
 const arr2 = ['one', ...arr1, 'four', 'five'];
 // ["one", "two", "three", "four", "five"]
@@ -874,7 +891,7 @@ const arr2 = ['one', ...arr1, 'four', 'five'];
 
 - **扩展运算符与解构赋值结合起来，用于生成数组**
 
-```
+```js
 const [first, ...rest] = [1, 2, 3, 4, 5];
 first // 1
 rest  // [2, 3, 4, 5]
@@ -882,14 +899,14 @@ rest  // [2, 3, 4, 5]
 
 需要注意：**如果将扩展运算符用于数组赋值，只能放在参数的最后一位，否则会报错。**
 
-```
+```js
 const [...rest, last] = [1, 2, 3, 4, 5];         // 报错
 const [first, ...rest, last] = [1, 2, 3, 4, 5];  // 报错
 ```
 
 - **将字符串转为真正的数组**
 
-```
+```js
 [...'hello']    // [ "h", "e", "l", "l", "o" ]
 ```
 
@@ -897,7 +914,7 @@ const [first, ...rest, last] = [1, 2, 3, 4, 5];  // 报错
 
 比较常见的应用是可以将某些数据结构转为数组：
 
-```
+```js
 // arguments对象
 function foo() {
   const args = [...arguments];
@@ -908,7 +925,7 @@ function foo() {
 
 - **使用**`**Math**`**函数获取数组中特定的值**
 
-```
+```js
 const numbers = [9, 4, 7, 1];
 Math.min(...numbers); // 1
 Math.max(...numbers); // 9
@@ -922,7 +939,7 @@ Math.max(...numbers); // 9
 
 Proxy 是 ES6 中新增的功能，它可以用来自定义对象中的操作。
 
-```
+```js
 let p = new Proxy(target, handler)
 ```
 
@@ -932,7 +949,7 @@ let p = new Proxy(target, handler)
 
 下面来通过 `Proxy` 来实现一个数据响应式：
 
-```
+```js
 let onWatch = (obj, setBind, getLogger) => {
   let handler = {
     get(target, property, receiver) {
@@ -974,7 +991,7 @@ p.a // 'a' = 2
 
 在解构数组时，以元素的位置为匹配条件来提取想要的数据的：
 
-```
+```js
 const [a, b, c] = [1, 2, 3]
 ```
 
@@ -984,7 +1001,7 @@ const [a, b, c] = [1, 2, 3]
 
 数组里的0、1、2索引位的元素值，精准地被映射到了左侧的第0、1、2个变量里去，这就是数组解构的工作模式。还可以通过给左侧变量数组设置空占位的方式，实现对数组中某几个元素的精准提取：
 
-```
+```js
 const [a,,c] = [1,2,3]
 ```
 
@@ -996,7 +1013,7 @@ const [a,,c] = [1,2,3]
 
 对象解构比数组结构稍微复杂一些，也更显强大。在解构对象时，是以属性的名称为匹配条件，来提取想要的数据的。现在定义一个对象：
 
-```
+```js
 const stu = {
   name: 'Bob',
   age: 24
@@ -1005,7 +1022,7 @@ const stu = {
 
 假如想要解构它的两个自有属性，可以这样：
 
-```
+```js
 const { name, age } = stu
 ```
 
@@ -1015,7 +1032,7 @@ const { name, age } = stu
 
 注意，对象解构严格以属性名作为定位依据，所以就算调换了 name 和 age 的位置，结果也是一样的：
 
-```
+```js
 const { age, name } = stu
 ```
 
@@ -1023,7 +1040,7 @@ const { age, name } = stu
 
 有时会遇到一些嵌套程度非常深的对象：
 
-```
+```js
 const school = {
    classes: {
       stu: {
@@ -1036,13 +1053,13 @@ const school = {
 
 像此处的 name 这个变量，嵌套了四层，此时如果仍然尝试老方法来提取它：
 
-```
+```js
 const { name } = school
 ```
 
 显然是不奏效的，因为 school 这个对象本身是没有 name 这个属性的，name 位于 school 对象的“儿子的儿子”对象里面。要想把 name 提取出来，一种比较笨的方法是逐层解构：
 
-```
+```js
 const { classes } = school
 const { stu } = classes
 const { name } = stu
@@ -1051,7 +1068,7 @@ name // 'Bob'
 
 但是还有一种更标准的做法，可以用一行代码来解决这个问题：
 
-```
+```js
 const { classes: { stu: { name } }} = school
        
 console.log(name)  // 'Bob'
@@ -1063,7 +1080,7 @@ console.log(name)  // 'Bob'
 
 扩展运算符被用在函数形参上时，**它还可以把一个分离的参数序列整合成一个数组**：
 
-```
+```js
 function mutiple(...args) {
   let result = 1;
   for (var val of args) {
@@ -1076,7 +1093,7 @@ mutiple(1, 2, 3, 4) // 24
 
 这里，传入 mutiple 的是四个分离的参数，但是如果在 mutiple 函数里尝试输出 args 的值，会发现它是一个数组：
 
-```
+```js
 function mutiple(...args) {
   console.log(args)
 }
@@ -1089,7 +1106,7 @@ mutiple(1, 2, 3, 4) // [1, 2, 3, 4]
 
 ES6 提出了“模板语法”的概念。在 ES6 以前，拼接字符串是很麻烦的事情：
 
-```
+```js
 var name = 'css'   
 var career = 'coder' 
 var hobby = ['coding', 'writing']
@@ -1098,7 +1115,7 @@ var finalString = 'my name is ' + name + ', I work as a ' + career + ', I love '
 
 仅仅几个变量，写了这么多加号，还要时刻小心里面的空格和标点符号有没有跟错地方。但是有了模板字符串，拼接难度直线下降：
 
-```
+```js
 var name = 'css'   
 var career = 'coder' 
 var hobby = ['coding', 'writing']
@@ -1114,7 +1131,7 @@ var finalString = `my name is ${name}, I work as a ${career} I love ${hobby[0]} 
 
 基于第一点，可以在模板字符串里无障碍地直接写 html 代码：
 
-```
+```js
 let list = `
     <ul>
         <li>列表项1</li>
@@ -1126,7 +1143,7 @@ console.log(message); // 正确输出，不存在报错
 
 基于第二点，可以把一些简单的计算和调用丢进 ${} 来做：
 
-```
+```js
 function add(a, b) {
   const finalString = `${a} + ${b} = ${a+b}`
   console.log(finalString)
@@ -1140,7 +1157,7 @@ add(1, 2) // 输出 '1 + 2 = 3'
 
 - - **includes**：判断字符串与子串的包含关系：
 
-```
+```js
 const son = 'haha' 
 const father = 'xixi haha hehe'
 father.includes(son) // true
@@ -1148,7 +1165,7 @@ father.includes(son) // true
 
 - - **startsWith**：判断字符串是否以某个/某串字符开头：
 
-```
+```js
 const father = 'xixi haha hehe'
 father.startsWith('haha') // false
 father.startsWith('xixi') // true
@@ -1156,14 +1173,14 @@ father.startsWith('xixi') // true
 
 - - **endsWith**：判断字符串是否以某个/某串字符结尾：
 
-```
+```js
 const father = 'xixi haha hehe'
   father.endsWith('hehe') // true
 ```
 
 - **自动重复**：可以使用 repeat 方法来使同一个字符串输出多次（被连续复制多次）：
 
-```
+```js
 const sourceCode = 'repeat for 3 times;'
 const repeated = sourceCode.repeat(3) 
 console.log(repeated) // repeat for 3 times;repeat for 3 times;repeat for 3 times;
@@ -1187,7 +1204,7 @@ console.log(repeated) // repeat for 3 times;repeat for 3 times;repeat for 3 time
 
 具体实现：
 
-```
+```js
 function objectFactory() {
   let newObject = null;
   let constructor = Array.prototype.shift.call(arguments);
@@ -1210,7 +1227,7 @@ function objectFactory() {
 objectFactory(构造函数, 初始化参数);
 ```
 
-### 2. map和Object的区别
+### 2. map和Object的区别---了解即可
 
 |          | Map                                                          | Object                                                       |
 | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -1221,7 +1238,7 @@ objectFactory(构造函数, 初始化参数);
 | 迭代     | Map 是 iterable 的，所以可以直接被迭代。                     | 迭代Object需要以某种方式获取它的键然后才能迭代。             |
 | 性能     | 在频繁增删键值对的场景下表现更好。                           | 在频繁添加和删除键值对的场景下未作出优化。                   |
 
-### 3. map和weakMap的区别
+### 3. map和weakMap的区别---了解即可
 
 **（1）Map**
 
@@ -1231,7 +1248,7 @@ map本质上就是键值对的集合，但是普通的Object中的键值对中�
 
 实际上Map是一个数组，它的每一个数据也都是一个数组，其形式如下：
 
-```
+```js
 const map = [
      ["name","张三"],
      ["age",18],
@@ -1256,7 +1273,7 @@ Map结构原生提供是三个遍历器生成函数和一个遍历方法
 - entries()：返回所有成员的遍历器。
 - forEach()：遍历Map的所有成员。
 
-```
+```js
 const map = new Map([
      ["foo",1],
      ["bar",2],
@@ -1375,7 +1392,7 @@ js 中的内置对象主要指的是在程序执行前存在全局作用域里�
 
 ### 5. 常用的正则表达式有哪些？
 
-```
+```js
 // （1）匹配 16 进制颜色值
 var regex = /#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})/g;
 
@@ -1392,7 +1409,7 @@ var regex = /^1[34578]\d{9}$/g;
 var regex = /^[a-zA-Z\$][a-zA-Z0-9_\$]{4,16}$/;
 ```
 
-### 6. 对JSON的理解
+### 6. 对JSON的理解---了解即可
 
 JSON 是一种基于文本的轻量级的数据交换格式。它可以被任何的编程语言读取和作为数据格式来传递。
 
@@ -1437,25 +1454,25 @@ JSON 字符串，然后将它传递到后端，后端通过 JSON 格式的字符
 
 （1）通过 call 调用数组的 slice 方法来实现转换
 
-```
+```js
 Array.prototype.slice.call(arrayLike);
 ```
 
 （2）通过 call 调用数组的 splice 方法来实现转换
 
-```
+```js
 Array.prototype.splice.call(arrayLike, 0);
 ```
 
 （3）通过 apply 调用数组的 concat 方法来实现转换
 
-```
+```js
 Array.prototype.concat.apply([], arrayLike);
 ```
 
 （4）通过 Array.from 方法来实现转换
 
-```
+```js
 Array.from(arrayLike);
 ```
 
@@ -1463,13 +1480,16 @@ Array.from(arrayLike);
 
 - 数组和字符串的转换方法：toString()、toLocalString()、join() 其中 join() 方法可以指定转换为字符串时的分隔符。
 - 数组尾部操作的方法 pop() 和 push()，push 方法可以传入多个参数。
-- 数组首部操作的方法 shift() 和 unshift() 重排序的方法 reverse() 和 sort()，sort() 方法可以传入一个函数来进行比较，传入前后两个值，如果返回值为正数，则交换两个参数的位置。
+- 数组首部操作的方法 shift() 和 unshift() 
+- 重排序的方法 reverse() 和 sort()，sort() 方法可以传入一个函数来进行比较，传入前后两个值，如果返回值为正数，则交换两个参数的位置。
 - 数组连接的方法 concat() ，返回的是拼接好的数组，不影响原数组。
 - 数组截取办法 slice()，用于截取数组中的一部分返回，不影响原数组。
-- 数组插入方法 splice()，影响原数组查找特定项的索引的方法，indexOf() 和 lastIndexOf() 迭代方法 every()、some()、filter()、map() 和 forEach() 方法
+- 数组插入方法 splice()，影响原数组
+- 查找特定项的索引的方法，indexOf() 和 lastIndexOf() 
+- 迭代方法 every()、some()、filter()、map() 和 forEach() 方法
 - 数组归并方法 reduce() 和 reduceRight() 方法
 
-### 10. **Unicode、UTF-8、UTF-16、UTF-32的区别？**
+### 10. **Unicode、UTF-8、UTF-16、UTF-32的区别？**---了解即可
 
 #### （1）Unicode
 
@@ -1597,7 +1617,7 @@ Array.from(arrayLike);
 - `UTF-8`需要判断每个字节中的开头标志信息，所以如果某个字节在传送过程中出错了，就会导致后面的字节也会解析出错；而`UTF-16`不会判断开头标志，即使错也只会错一个字符，所以容错能力教强；
 - 如果字符内容全部英文或英文与其他文字混合，但英文占绝大部分，那么用`UTF-8`就比`UTF-16`节省了很多空间；而如果字符内容全部是中文这样类似的字符或者混合字符中中文占绝大多数，那么`UTF-16`就占优势了，可以节省很多空间；
 
-### 11. 常见的位运算符有哪些？其计算规则是什么？
+### 11. 常见的位运算符有哪些？其计算规则是什么？---了解即可
 
 现代计算机中数据都是以二进制的形式存储的，即0、1两种状态，计算机对二进制数据进行的运算加减乘除等都是叫位运算，即将符号位共同参与运算的运算。
 
@@ -1806,7 +1826,7 @@ Array.from(arrayLike);
 
 （1）将数组的方法应用到类数组上，这时候就可以使用`call`和`apply`方法，如：
 
-```
+```js
 function foo(){ 
   Array.prototype.forEach.call(arguments, a => console.log(a))
 }
@@ -1814,7 +1834,7 @@ function foo(){
 
 （2）使用Array.from方法将类数组转化成数组：‌
 
-```
+```js
 function foo(){ 
   const arrArgs = Array.from(arguments) 
   arrArgs.forEach(a => console.log(a))
@@ -1823,7 +1843,7 @@ function foo(){
 
 （3）使用展开运算符将类数组转化成数组
 
-```
+```js
 function foo(){ 
     const arrArgs = [...arguments] 
     arrArgs.forEach(a => console.log(a)) 
@@ -1833,7 +1853,7 @@ function foo(){
 ### 13. 什么是 DOM 和 BOM？
 
 - DOM 指的是文档对象模型，它指的是把文档当做一个对象，这个对象主要定义了处理网页内容的方法和接口。
-- BOM 指的是浏览器对象模型，它指的是把浏览器当做一个对象来对待，这个对象主要定义了与浏览器进行交互的法和接口。BOM的核心是 window，而 window 对象具有双重角色，它既是通过 js 访问浏览器窗口的一个接口，又是一个 Global（全局）对象。这意味着在网页中定义的任何对象，变量和函数，都作为全局对象的一个属性或者方法存在。window 对象含有 location 对象、navigator 对象、screen 对象等子对象，并且 DOM 的最根本的对象 document 对象也是 BOM 的 window 对象的子对象。
+- BOM 指的是浏览器对象模型，它指的是把浏览器当做一个对象来对待，这个对象主要定义了与浏览器进行交互的方法和接口。BOM的核心是 window，而 window 对象具有双重角色，它既是通过 js 访问浏览器窗口的一个接口，又是一个 Global（全局）对象。这意味着在网页中定义的任何对象，变量和函数，都作为全局对象的一个属性或者方法存在。window 对象含有 location 对象、navigator 对象、screen 对象等子对象，并且 DOM 的最根本的对象 document 对象也是 BOM 的 window 对象的子对象。
 
 ### 14. 对类数组对象的理解，如何转化为数组
 
@@ -1845,25 +1865,25 @@ function foo(){
 
 - 通过 call 调用数组的 slice 方法来实现转换
 
-```
+```js
 Array.prototype.slice.call(arrayLike);
 ```
 
 - 通过 call 调用数组的 splice 方法来实现转换
 
-```
+```js
 Array.prototype.splice.call(arrayLike, 0);
 ```
 
 - 通过 apply 调用数组的 concat 方法来实现转换
 
-```
+```js
 Array.prototype.concat.apply([], arrayLike);
 ```
 
 - 通过 Array.from 方法来实现转换
 
-```
+```js
 Array.from(arrayLike);
 ```
 
@@ -1886,7 +1906,7 @@ AJAX是 Asynchronous JavaScript and XML 的缩写，指的是通过 JavaScript �
 - 在发起请求前，可以为这个对象**添加一些信息和监听函数**。比如说可以通过 setRequestHeader 方法来为请求添加头信息。还可以为这个对象添加一个状态监听函数。一个 XMLHttpRequest 对象一共有 5 个状态，当它的状态变化时会触发onreadystatechange 事件，可以通过设置监听函数，来处理请求成功后的结果。当对象的 readyState 变为 4 的时候，代表服务器返回的数据接收完成，这个时候可以通过判断请求的状态，如果状态是 2xx 或者 304 的话则代表返回正常。这个时候就可以通过 response 中的数据来对页面进行更新了。
 - 当对象的属性和监听函数设置完成后，最后调**用 sent 方法来向服务器发起请求**，可以传入参数作为发送的数据体。
 
-```
+```js
 const SERVER_URL = "/server";
 let xhr = new XMLHttpRequest();
 // 创建 Http 请求
@@ -1914,7 +1934,7 @@ xhr.send(null);
 
 使用Promise封装AJAX：
 
-```
+```js
 // promise 封装实现：
 function getJSON(url) {
   // 创建一个 promise 对象
@@ -1987,7 +2007,7 @@ function getJSON(url) {
 
 变量提升可以在一定程度上提高JS的容错性，看下面的代码：
 
-```
+```js
 a = 1;
 var a;
 console.log(a);
@@ -2010,7 +2030,7 @@ console.log(a);
 
 变量提升虽然有一些优点，但是他也会造成一定的问题，在ES6中提出了let、const来定义变量，它们就没有变量提升的机制。下面看一下变量提升可能会导致的问题：
 
-```
+```js
 var tmp = new Date();
 
 function fn(){
@@ -2025,7 +2045,7 @@ fn();  // undefined
 
 在这个函数中，原本是要打印出外层的tmp变量，但是因为变量提升的问题，内层定义的tmp被提到函数内部的最顶部，相当于覆盖了外层的tmp，所以打印结果为undefined。
 
-```
+```js
 var tmp = 'hello world';
 
 for (var i = 0; i < tmp.length; i++) {
@@ -2060,7 +2080,7 @@ ES6 Module和CommonJS模块的共同点：
 
 DOM 节点的获取的API及使用：
 
-```
+```js
 getElementById // 按照 id 查询
 getElementsByTagName // 按照标签名查询
 getElementsByClassName // 按照类名查询
@@ -2082,7 +2102,7 @@ var pList = document.querySelectorAll('.mooc') // 查询到类名为 mooc 的集
 
 **创建一个新节点，并把它添加到指定节点的后面。**已知的 HTML 结构如下：
 
-```
+```html
 <html>
   <head>
     <title>DEMO</title>
@@ -2097,7 +2117,7 @@ var pList = document.querySelectorAll('.mooc') // 查询到类名为 mooc 的集
 
 要求添加一个有内容的 span 节点到 id 为 title 的节点后面，做法就是：
 
-```
+```js
 // 首先获取父节点
 var container = document.getElementById('container')
 // 创建新节点
@@ -2112,7 +2132,7 @@ container.appendChild(targetSpan)
 
 **删除指定的 DOM 节点，**已知的 HTML 结构如下：
 
-```
+```html
 <html>
   <head>
     <title>DEMO</title>
@@ -2127,7 +2147,7 @@ container.appendChild(targetSpan)
 
 需要删除 id 为 title 的元素，做法是：
 
-```
+```js
 // 获取目标元素的父元素
 var container = document.getElementById('container')
 // 获取目标元素
@@ -2138,7 +2158,7 @@ container.removeChild(targetNode)
 
 或者通过子节点数组来完成删除：
 
-```
+```js
 // 获取目标元素的父元素
 var container = document.getElementById('container')
 // 获取目标元素
@@ -2155,7 +2175,7 @@ container.removeChild(targetNode)
 
 **将指定的两个 DOM 元素交换位置，**已知的 HTML 结构如下：
 
-```
+```html
 <html>
   <head>
     <title>DEMO</title>
@@ -2171,7 +2191,7 @@ container.removeChild(targetNode)
 
 现在需要调换 title 和 content 的位置，可以考虑 insertBefore 或者 appendChild：
 
-```
+```js
 // 获取父元素
 var container = document.getElementById('container')   
  
@@ -2203,7 +2223,15 @@ use strict 是一种 ECMAscript5 添加的（严格模式）运行模式，这�
 
 - 第一种方式，使用 instanceof 运算符来判断构造函数的 prototype 属性是否出现在对象的原型链中的任何位置。
 - 第二种方式，通过对象的 constructor 属性来判断，对象的 constructor 属性指向该对象的构造函数，但是这种方式不是很安全，因为 constructor 属性可以被改写。
-- 第三种方式，如果需要判断的是某个内置的引用类型的话，可以使用 Object.prototype.toString() 方法来打印对象的[[Class]] 属性来进行判断。
+
+```js
+function Fn(){}
+let func = new Fn()
+console.log(Fn.prototype.constructor === Fn)// true
+console.log(func.constructor === Fn)// true
+```
+
+- 第三种方式，如果需要判断的是某个内置的引用类型的话，可以使用 Object.prototype.toString.call() 方法来打印对象的[[Class]] 属性来进行判断。
 
 ### 23. 强类型语言和弱类型语言的区别
 
@@ -2214,13 +2242,13 @@ use strict 是一种 ECMAscript5 添加的（严格模式）运行模式，这�
 
 两者对比：强类型语言在速度上可能略逊色于弱类型语言，但是强类型语言带来的严谨性可以有效地帮助避免许多错误。
 
-### 24. 解释性语言和编译型语言的区别
+### 24. 解释性语言和编译型语言的区别---了解即可
 
 （1）解释型语言
 
 使用专门的解释器对源程序逐行解释成特定平台的机器码并立即执行。是代码在执行时才被解释器一行行动态翻译和执行，而不是在执行之前就完成翻译。解释型语言不需要事先编译，其直接将源代码解释成机器码并立即执行，所以只要某一平台提供了相应的解释器即可运行该程序。其特点总结如下
 
-- 解释型语言每次运行都需要将源代码解释称机器码并执行，效率较低；
+- 解释型语言每次运行都需要将源代码解释成机器码并执行，效率较低；
 - 只要平台提供相应的解释器，就可以运行源代码，所以可以方便源程序移植；
 - JavaScript、Python等属于解释型语言。
 
@@ -2256,7 +2284,7 @@ for…of是作为ES6新增的遍历方式，允许遍历一个含有iterator接�
 
 如果需要遍历的对象是类数组对象，用Array.from转成数组即可。
 
-```
+```js
 var obj = {
     0:'one',
     1:'two',
@@ -2264,13 +2292,13 @@ var obj = {
 };
 obj = Array.from(obj);
 for(var k of obj){
-    console.log(k)
+    console.log(k)// one two
 }
 ```
 
 如果不是类数组对象，就给对象添加一个[Symbol.iterator]属性，并指向一个迭代器即可。
 
-```
+```js
 //方法一：
 var obj = {
     a:1,
@@ -2388,7 +2416,7 @@ Axios 是一种基于Promise封装的HTTP客户端，其特点如下：
 
 ### 1. 对原型、原型链的理解
 
-在JavaScript中是使用构造函数来新建一个对象的，每一个构造函数的内部都有一个 prototype 属性，它的属性值是一个对象，这个对象包含了可以由该构造函数的所有实例共享的属性和方法。当使用构造函数新建一个对象后，在这个对象的内部将包含一个指针，这个指针指向构造函数的 prototype 属性对应的值，在 ES5 中这个指针被称为对象的原型。一般来说不应该能够获取到这个值的，但是现在浏览器中都实现了 __proto__ 属性来访问这个属性，但是最好不要使用这个属性，因为它不是规范中规定的。ES5 中新增了一个 Object.getPrototypeOf() 方法，可以通过这个方法来获取对象的原型。
+在JavaScript中是使用构造函数来新建一个对象的，每一个构造函数的内部都有一个 prototype 属性，它的属性值是一个对象，这个对象包含了可以由该构造函数的所有实例共享的属性和方法。当使用构造函数新建一个对象后，在这个对象的内部将包含一个指针，这个指针指向构造函数的 prototype 属性对应的值，在 ES5 中这个指针被称为对象的原型。一般来说不应该能够获取到这个值的，但是现在浏览器中都实现了 `__proto__` 属性来访问这个属性，但是最好不要使用这个属性，因为它不是规范中规定的。ES5 中新增了一个 `Object.getPrototypeOf()` 方法，可以通过这个方法来获取对象的原型。
 
 
 
@@ -2402,7 +2430,7 @@ Axios 是一种基于Promise封装的HTTP客户端，其特点如下：
 
 ### 2. 原型修改、重写
 
-```
+```js
 function Person(name) {
     this.name = name
 }
@@ -2420,9 +2448,9 @@ console.log(p.__proto__ === Person.prototype)        // true
 console.log(p.__proto__ === p.constructor.prototype) // false
 ```
 
-可以看到修改原型的时候p的构造函数不是指向Person了，因为直接给Person的原型对象直接用对象赋值时，它的构造函数指向的了根构造函数Object，所以这时候`p.constructor === Object` ，而不是`p.constructor === Person`。要想成立，就要用constructor指回来：
+可以看到修改原型的时候p的构造函数不是指向Person了，因为直接给Person的原型对象直接用对象赋值时，它的构造函数指向了根构造函数Object，所以这时候`p.constructor === Object` ，而不是`p.constructor === Person`。要想成立，就要用constructor指回来：
 
-```
+```js
 Person.prototype = {
     getName: function() {}
 }
@@ -2434,7 +2462,7 @@ console.log(p.__proto__ === p.constructor.prototype) // true
 
 ### 3. 原型链指向
 
-```
+```js
 p.__proto__  // Person.prototype
 Person.prototype.__proto__  // Object.prototype
 p.__proto__.__proto__ //Object.prototype
@@ -2444,7 +2472,7 @@ p1.__proto__.constructor // Person
 Person.prototype.constructor  // Person
 ```
 
-```
+```js
 p.__proto__  // Person.prototype
 Person.prototype.__proto__  // Object.prototype
 p.__proto__.__proto__ //Object.prototype
@@ -2462,9 +2490,9 @@ Person.prototype.constructor  // Person
 
 ### 5. 如何获得对象非原型链上的属性？
 
-使用后`hasOwnProperty()`方法来判断属性是否属于原型链的属性：
+使用`hasOwnProperty()`方法来判断属性是否属于原型链的属性：
 
-```
+```js
 function iterate(obj){
    var res=[];
    for(var key in obj){
@@ -2492,7 +2520,7 @@ function iterate(obj){
 
 比如，函数 A 内部有一个函数 B，函数 B 可以访问到函数 A 中的变量，那么函数 B 就是闭包。
 
-```
+```js
 function A() {
   let a = 1
   window.B = function () {
@@ -2505,7 +2533,7 @@ B() // 1
 
 在 JS 中，闭包存在的意义就是让我们可以间接访问函数内部的变量。经典面试题：循环中使用闭包解决 var 定义函数的问题
 
-```
+```js
 for (var i = 1; i <= 5; i++) {
   setTimeout(function timer() {
     console.log(i)
@@ -2517,9 +2545,9 @@ for (var i = 1; i <= 5; i++) {
 
 - 第一种是使用闭包的方式
 
-```
+```js
 for (var i = 1; i <= 5; i++) {
-  ;(function(j) {
+  (function(j) {
     setTimeout(function timer() {
       console.log(j)
     }, j * 1000)
@@ -2531,7 +2559,7 @@ for (var i = 1; i <= 5; i++) {
 
 - 第二种就是使用 `setTimeout` 的第三个参数，这个参数会被当成 `timer` 函数的参数传入。
 
-```
+```js
 for (var i = 1; i <= 5; i++) {
   setTimeout(
     function timer(j) {
@@ -2545,7 +2573,7 @@ for (var i = 1; i <= 5; i++) {
 
 - 第三种就是使用 `let` 定义 `i` 了来解决问题了，这个也是最为推荐的方式
 
-```
+```js
 for (let i = 1; i <= 5; i++) {
   setTimeout(function timer() {
     console.log(i)
@@ -2566,18 +2594,18 @@ for (let i = 1; i <= 5; i++) {
 
 （2）函数作用域
 
-- 函数作用域声明在函数内部的变零，一般只有固定的代码片段可以访问到
+- 函数作用域声明在函数内部的变量，一般只有固定的代码片段可以访问到
 - 作用域是分层的，内层作用域可以访问外层作用域，反之不行
 
 ##### 2）块级作用域
 
-- 使用ES6中新增的let和const指令可以声明块级作用域，块级作用域可以在函数中创建也可以在一个代码块中的创建（由`{ }`包裹的代码片段）
+- 使用ES6中新增的let和const指令可以声明块级作用域，块级作用域可以在函数中创建也可以在一个代码块中创建（由`{ }`包裹的代码片段）
 - let和const声明的变量不会有变量提升，也不可以重复声明
 - 在循环中比较适合绑定块级作用域，这样就可以把声明的计数器变量限制在循环内部。
 
 
 
-**作用域链：**
+##### 3）**作用域链：**
 
 在当前作用域中查找所需变量，但是该作用域没有这个变量，那这个变量就是自由变量。如果在自己作用域找不到该变量就去父级作用域查找，依次向上级作用域查找，直到访问到window对象就被终止，这一层层的关系就是作用域链。
 
@@ -2605,7 +2633,7 @@ for (let i = 1; i <= 5; i++) {
 
 当一个函数被调用时，就会为该函数创建一个新的执行上下文，函数的上下文可以有任意多个。
 
-**（3）**`**eval**`**函数执行上下文**
+**（3）**`eval`**函数执行上下文**
 
 执行在eval函数中的代码会有属于他自己的执行上下文，不过eval函数不常使用，不做介绍。
 
@@ -2614,7 +2642,7 @@ for (let i = 1; i <= 5; i++) {
 - JavaScript引擎使用执行上下文栈来管理执行上下文
 - 当JavaScript执行代码时，首先遇到全局代码，会创建一个全局执行上下文并且压入执行栈中，每当遇到一个函数调用，就会为该函数创建一个新的执行上下文并压入栈顶，引擎会执行位于执行上下文栈顶的函数，当函数执行完成之后，执行上下文从栈中弹出，继续执行下一个上下文。当所有的代码都执行完毕之后，从栈中弹出全局执行上下文。
 
-```
+```js
 let a = 'Hello World!';
 function first() {
   console.log('Inside first function');
@@ -2626,7 +2654,7 @@ function second() {
 }
 first();
 //执行顺序
-//先执行second(),在执行first()
+//先执行second(),z执行first()
 ```
 
 ##### 3. 创建执行上下文
@@ -2688,7 +2716,7 @@ this 是执行上下文中的一个属性，它指向最后一次调用这个方
 - apply 接受两个参数，第一个参数指定了函数体内 this 对象的指向，第二个参数为一个带下标的集合，这个集合可以为数组，也可以为类数组，apply 方法把这个集合中的元素作为参数传递给被调用的函数。
 - call 传入的参数数量不固定，跟 apply 相同的是，第一个参数也是代表函数体内的 this 指向，从第二个参数开始往后，每个参数被依次传入函数。
 
-### 3. 实现call、apply 及 bind 函数
+### 3. 实现call、apply 及 bind 函数（建议看一下[鲨鱼哥的掘金手写](https://juejin.cn/post/6968713283884974088#heading-9)）
 
 **（1）call 函数的实现步骤：**
 
@@ -2700,7 +2728,7 @@ this 是执行上下文中的一个属性，它指向最后一次调用这个方
 - 删除刚才新增的属性。
 - 返回结果。
 
-```
+```js
 Function.prototype.myCall = function(context) {
   // 判断调用对象
   if (typeof this !== "function") {
@@ -2731,7 +2759,7 @@ Function.prototype.myCall = function(context) {
 - 删除刚才新增的属性
 - 返回结果
 
-```
+```js
 Function.prototype.myApply = function(context) {
   // 判断调用对象是否为函数
   if (typeof this !== "function") {
@@ -2761,7 +2789,7 @@ Function.prototype.myApply = function(context) {
 - 创建一个函数返回
 - 函数内部使用 apply 来绑定函数调用，需要判断函数作为构造函数的情况，这个时候需要传入当前函数的 this 给 apply 调用，其余情况都传入指定的上下文对象。
 
-```
+```js
 Function.prototype.myBind = function(context) {
   // 判断调用对象是否为函数
   if (typeof this !== "function") {
@@ -2795,7 +2823,7 @@ JavaScript中的异步机制可以分为以下几种：
 
 #### （1）setTimeout
 
-```
+```js
 console.log('script start') //1. 打印 script start
 setTimeout(function(){
     console.log('settimeout')   // 4. 打印 settimeout
@@ -2808,7 +2836,7 @@ console.log('script end')   //3. 打印 script start
 
 Promise本身是**同步的立即执行函数**， 当在executor中执行resolve或者reject的时候, 此时是异步操作， 会先执行then/catch等，当主栈完成后，才会去调用resolve/reject中存放的方法执行，打印p的时候，是打印的返回结果，一个Promise实例。
 
-```
+```js
 console.log('script start')
 let promise1 = new Promise(function (resolve) {
     console.log('promise1')
@@ -2833,7 +2861,7 @@ console.log('script end')
 
 #### （3）async/await
 
-```
+```js
 async function async1(){
    console.log('async1 start');
     await async2();
@@ -2854,7 +2882,7 @@ async 函数返回一个 Promise 对象，当函数执行的时候，一旦遇�
 
 例如：
 
-```
+```js
 async function func1() {
     return 1
 }
@@ -2865,7 +2893,7 @@ console.log(func1())
 
 func1的运行结果其实就是一个Promise对象。因此也可以使用then来处理后续逻辑。
 
-```
+```js
 func1().then(res => {
     console.log(res);  // 30
 })
@@ -2943,7 +2971,7 @@ Promise对象代表一个异步操作，有三种状态：pending（进行中）
 
 Promise构造函数接受一个函数作为参数，该函数的两个参数分别是`resolve`和`reject`。
 
-```
+```js
 const promise = new Promise(function(resolve, reject) {
   // ... some code
   if (/* 异步操作成功 */){
@@ -2960,7 +2988,7 @@ const promise = new Promise(function(resolve, reject) {
 
 `Promise.resolve(value)`的返回值也是一个promise对象，可以对返回值进行.then调用，代码如下：
 
-```
+```js
 Promise.resolve(11).then(function(value){
   console.log(value); // 打印出11
 });
@@ -2976,13 +3004,13 @@ Promise.resolve(11).then(function(value){
 
 `Promise.reject` 也是`new Promise`的快捷形式，也创建一个promise对象。代码如下：
 
-```
+```js
 Promise.reject(new Error(“我错了，请原谅俺！！”));
 ```
 
 就是下面的代码new Promise的简单形式：
 
-```
+```js
 new Promise(function(resolve,reject){
    reject(new Error("我错了，请原谅俺！！"));
 });
@@ -2990,7 +3018,7 @@ new Promise(function(resolve,reject){
 
 下面是使用resolve方法和reject方法：
 
-```
+```js
 function testPromise(ready) {
   return new Promise(function(resolve,reject){
     if(ready) {
@@ -3018,7 +3046,7 @@ Promise有五个常用的方法：then()、catch()、all()、race()、finally。
 
 当Promise执行的内容符合成功条件时，调用`resolve`函数，失败就调用`reject`函数。Promise创建完了，那该如何调用呢？
 
-```
+```js
 promise.then(function(value) {
   // success
 }, function(error) {
@@ -3034,7 +3062,7 @@ promise.then(function(value) {
 
 当要写有顺序的异步事件时，需要串行时，可以这样写：
 
-```
+```js
 let promise = new Promise((resolve,reject)=>{
     ajax('first').success(function(res){
         resolve(res);
@@ -3063,7 +3091,7 @@ promise.then(res=>{
 
 Promise对象除了有then方法，还有一个catch方法，该方法相当于`then`方法的第二个参数，指向`reject`的回调函数。不过`catch`方法还有一个作用，就是在执行`resolve`回调函数时，如果出现错误，抛出异常，不会停止运行，而是进入`catch`方法中。
 
-```
+```js
 p.then((data) => {
      console.log('resolved',data);
 },(err) => {
@@ -3081,7 +3109,7 @@ p.then((data) => {
 
 `all`方法可以完成并行任务， 它接收一个数组，数组的每一项都是一个`promise`对象。当数组中所有的`promise`的状态都达到`resolved`的时候，`all`方法的状态就会变成`resolved`，如果有一个状态变成了`rejected`，那么`all`方法的状态就会变成`rejected`。
 
-```
+```js
 javascript
 let promise1 = new Promise((resolve,reject)=>{
     setTimeout(()=>{
@@ -3110,7 +3138,7 @@ Promise.all([promise1,promise2,promise3]).then(res=>{
 
 `race`方法和`all`一样，接受的参数是一个每项都是`promise`的数组，但是与`all`不同的是，当最先执行完的事件执行完之后，就直接返回该`promise`对象的值。如果第一个`promise`对象状态变成`resolved`，那自身的状态变成了`resolved`；反之第一个`promise`变成`rejected`，那自身状态就会变成`rejected`。
 
-```
+```js
 let promise1 = new Promise((resolve,reject)=>{
     setTimeout(()=>{
        reject(1);
@@ -3136,7 +3164,7 @@ Promise.race([promise1,promise2,promise3]).then(res=>{
 
 那么`race`方法有什么实际作用呢？当要做一件事，超过多长时间就不做了，可以用这个方法来解决：
 
-```
+```js
 Promise.race([promise1,timeOutPromise(5000)]).then(res=>{})
 ```
 
@@ -3144,7 +3172,7 @@ Promise.race([promise1,timeOutPromise(5000)]).then(res=>{})
 
 `finally`方法用于指定不管 Promise 对象最后状态如何，都会执行的操作。该方法是 ES2018 引入标准的。
 
-```
+```js
 promise
 .then(result => {···})
 .catch(error => {···})
@@ -3157,7 +3185,7 @@ promise
 
 下面是一个例子，服务器使用 Promise 处理请求，然后使用`finally`方法关掉服务器。
 
-```
+```js
 server.listen(port)
   .then(function () {
     // ...
@@ -3167,7 +3195,7 @@ server.listen(port)
 
 `finally`方法的回调函数不接受任何参数，这意味着没有办法知道，前面的 Promise 状态到底是`fulfilled`还是`rejected`。这表明，`finally`方法里面的操作，应该是与状态无关的，不依赖于 Promise 的执行结果。`finally`本质上是`then`方法的特例：
 
-```
+```js
 promise
 .finally(() => {
   // 语句
@@ -3192,7 +3220,7 @@ promise
 
 在工作中经常会碰到这样一个需求，比如我使用ajax发一个A请求后，成功后拿到数据，需要把数据传给B请求；那么需要如下编写代码：
 
-```
+```js
 let fs = require('fs')
 fs.readFile('./a.txt','utf8',function(err,data){
   fs.readFile(data,'utf8',function(err,data){
@@ -3212,7 +3240,7 @@ fs.readFile('./a.txt','utf8',function(err,data){
 
 `Promise`出现之后，代码变成这样：
 
-```
+```js
 let fs = require('fs')
 function read(url){
   return new Promise((resolve,reject)=>{
@@ -3235,7 +3263,7 @@ read('./a.txt').then(data=>{
 
 ### 6. Promise.all和Promise.race的区别的使用场景
 
-**（1）****Promise.all**
+（1）**Promise.all**
 
 `Promise.all`可以将多个`Promise`实例包装成一个新的Promise实例。同时，成功和失败的返回值是不同的，成功的时候返回的是**一个结果数组**，而失败的时候则返回**最先被reject失败状态的值**。
 
@@ -3251,7 +3279,7 @@ Promise.all中传入的是数组，返回的也是是数组，并且会将进行
 
 顾名思义，Promse.race就是赛跑的意思，意思就是说，Promise.race([p1, p2, p3])里面哪个结果获得的快，就返回那个结果，不管结果本身是成功状态还是失败状态。当要做一件事，超过多长时间就不做了，可以用这个方法来解决：
 
-```
+```js
 Promise.race([promise1,timeOutPromise(5000)]).then(res=>{})
 ```
 
@@ -3259,7 +3287,7 @@ Promise.race([promise1,timeOutPromise(5000)]).then(res=>{})
 
 async/await其实是`Generator` 的语法糖，它能实现的效果都能用then链来实现，它是为优化then链而开发出来的。从字面上来看，async是“异步”的简写，await则为等待，所以很好理解async 用于申明一个 function 是异步的，而 await 用于等待一个异步方法执行完成。当然语法上强制规定await只能出现在asnyc函数中，先来看看async函数返回了什么： 
 
-```
+```js
 async function testAsy(){
    return 'hello world';
 }
@@ -3275,7 +3303,7 @@ console.log(result)
 
 async 函数返回的是一个 Promise 对象，所以在最外层不能用 await 获取其返回值的情况下，当然应该用原来的方式：`then()` 链来处理这个 Promise 对象，就像这样：
 
-```
+```js
 async function testAsy(){
    return 'hello world'
 }
@@ -3304,7 +3332,7 @@ result.then(v=>{
 
 因为 async 函数返回一个 Promise 对象，所以 await 可以用于等待一个 async 函数的返回值——这也可以说是 await 在等 async 函数，但要清楚，它等的实际是一个返回值。注意到 await 不仅仅用于等 Promise 对象，它可以等任意表达式的结果，所以，await 后面实际是可以接普通函数调用或者直接量的。所以下面这个示例完全可以正确运行：
 
-```
+```js
 function getSomething() {
     return "something";
 }
@@ -3328,7 +3356,7 @@ await 表达式的运算结果取决于它等的是什么。
 
 来看一个例子：
 
-```
+```js
 function testAsy(x){
    return new Promise(resolve=>{setTimeout(() => {
        resolve(x);
@@ -3355,7 +3383,7 @@ console.log('cug')  //立即输出cug
 
 假设一个业务，分多个步骤完成，每个步骤都是异步的，而且依赖于上一个步骤的结果。仍然用 `setTimeout` 来模拟异步操作：
 
-```
+```js
 /**
  * 传入参数 n，表示这个函数执行的时间（毫秒）
  * 执行的结果是 n + 200，这个值将用于下一步骤
@@ -3381,7 +3409,7 @@ function step3(n) {
 
 现在用 Promise 方式来实现这三个步骤的处理：
 
-```
+```js
 function doIt() {
     console.time("doIt");
     const time1 = 300;
@@ -3404,7 +3432,7 @@ doIt();
 
 如果用 async/await 来实现呢，会是这样：
 
-```
+```js
 async function doIt() {
     console.time("doIt");
     const time1 = 300;
@@ -3428,7 +3456,7 @@ doIt();
 
 ### 11. async/await 如何捕获异常
 
-```
+```js
 async function fn(){
     try{
         let a = await Promise.reject('error')
@@ -3438,7 +3466,7 @@ async function fn(){
 }
 ```
 
-### 12. 并发与并行的区别？
+### 12. 并发与并行的区别？---了解即可
 
 - 并发是宏观概念，我分别有任务 A 和任务 B，在一段时间内通过任务间的切换完成了这两个任务，这种情况就可以称之为并发。
 - 并行是微观概念，假设 CPU 中存在两个核心，那么我就可以同时完成任务 A、B。同时完成多个任务的情况就可以称之为并行。
@@ -3447,7 +3475,7 @@ async function fn(){
 
 以下代码就是一个回调函数的例子：
 
-```
+```js
 ajax(url, () => {
     // 处理逻辑
 })
@@ -3455,7 +3483,7 @@ ajax(url, () => {
 
 回调函数有一个致命的弱点，就是容易写出回调地狱（Callback hell）。假设多个请求存在依赖性，可能会有如下代码：
 
-```
+```js
 ajax(url, () => {
     // 处理逻辑
     ajax(url1, () => {
@@ -3469,7 +3497,7 @@ ajax(url, () => {
 
 以上代码看起来不利于阅读和维护，当然，也可以把函数分开来写：
 
-```
+```js
 function firstAjax() {
   ajax(url1, () => {
     // 处理逻辑
@@ -3504,7 +3532,7 @@ ajax(url, () => {
 
 其实这个观点是错误的，因为 JS 是单线程执行的，如果前面的代码影响了性能，就会导致 `setTimeout` 不会按期执行。当然了，可以通过代码去修正 `setTimeout`，从而使定时器相对准确：
 
-```
+```js
 let period = 60 * 1000 * 60 * 2
 let startTime = new Date().getTime()
 let count = 0
@@ -3537,7 +3565,7 @@ setTimeout(loop, currentInterval)
 
 通常来说不建议使用 `setInterval`。第一，它和 `setTimeout` 一样，不能保证在预期的时间执行任务。第二，它存在执行累积的问题，请看以下伪代码
 
-```
+```js
 function demo() {
   setInterval(function(){
     console.log(2)
@@ -3553,7 +3581,7 @@ demo()
 
 如果有循环定时器的需求，其实完全可以通过 `requestAnimationFrame` 来实现：
 
-```
+```js
 function setInterval(callback, interval) {
   let timer
   const now = Date.now
@@ -3632,7 +3660,7 @@ setInterval(timer => {
 
 （6）第六种方式是寄生式组合继承，组合继承的缺点就是使用超类型的实例做为子类型的原型，导致添加了不必要的原型属性。寄生式组合继承的方式是使用超类型的原型的副本来作为子类型的原型，这样就避免了创建不必要的属性。
 
-## 九、垃圾回收与内存泄漏
+## 九、垃圾回收与内存泄漏---了解即可
 
 ### 1. 浏览器的垃圾回收机制
 
@@ -3662,7 +3690,7 @@ setInterval(timer => {
 - 另外一种垃圾回收机制就是引用计数，这个用的相对较少。引用计数就是跟踪记录每个值被引用的次数。当声明了一个变量并将一个引用类型赋值给该变量时，则这个值的引用次数就是1。相反，如果包含对这个值引用的变量又取得了另外一个值，则这个值的引用次数就减1。当这个引用次数变为0时，说明这个变量已经没有价值，因此，在在机回收期下次再运行时，这个变量所占有的内存空间就会被释放出来。
 - 这种方法会引起**循环引用**的问题：例如：` obj1`和`obj2`通过属性进行相互引用，两个对象的引用次数都是2。当使用循环计数时，由于函数执行完后，两个对象都离开作用域，函数执行结束，`obj1`和`obj2`还将会继续存在，因此它们的引用次数永远不会是0，就会引起循环引用。
 
-```
+```js
 function fun() {
     let obj1 = {};
     let obj2 = {};
@@ -3673,9 +3701,9 @@ function fun() {
 
 这种情况下，就要手动释放变量占用的内存：
 
-```
+```js
 obj1.a =  null
- obj2.a =  null
+obj2.a =  null
 ```
 
 #### （3）减少垃圾回收
@@ -3683,7 +3711,7 @@ obj1.a =  null
 虽然浏览器可以进行垃圾自动回收，但是当代码比较复杂时，垃圾回收所带来的代价比较大，所以应该尽量减少垃圾回收。
 
 - **对数组进行优化：**在清空一个数组时，最简单的方法就是给其赋值为[ ]，但是与此同时会创建一个新的空对象，可以将数组的长度设置为0，以此来达到清空数组的目的。
-- **对**`**object**`**进行优化：**对象尽量复用，对于不再使用的对象，就将其设置为null，尽快被回收。
+- **对**`object`**进行优化：**对象尽量复用，对于不再使用的对象，就将其设置为null，尽快被回收。
 - **对函数进行优化：**在循环中的函数表达式，如果可以复用，尽量放在函数的外面。
 
 ### 2. 哪些情况会导致内存泄漏
