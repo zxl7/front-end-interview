@@ -1533,7 +1533,7 @@ const task = (timer, light) =>
 const step = () => {
     task(3000, 'red')
         .then(() => task(2000, 'green'))
-        .then(() => task(2100, 'yellow'))
+        .then(() => task(1000, 'yellow'))
         .then(step)
 }
 step()
@@ -1547,7 +1547,7 @@ step()
 const taskRunner =  async () => {
     await task(3000, 'red')
     await task(2000, 'green')
-    await task(2100, 'yellow')
+    await task(1000, 'yellow')
     taskRunner()
 }
 taskRunner()
