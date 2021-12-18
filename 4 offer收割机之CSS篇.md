@@ -591,6 +591,11 @@ z-index 属性在下列情况下会失效：
 
 ### 31. CSS3 中的 transform 有哪些属性
 
+- translate 位移
+- rotate 旋转
+- scale 缩放
+- skew 斜切
+
 ## 二、页面布局
 
 ### 1. 常见的 CSS 布局单位
