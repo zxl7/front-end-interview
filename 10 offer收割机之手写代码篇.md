@@ -266,7 +266,7 @@ then(onFulfilled, onReject){
 
 一般来说，Promise.all 用来处理多个并发请求，也是为了页面数据构造的方便，将一个页面所用到的在不同接口的数据一起请求过来，不过，如果其中一个接口失败了，多个请求也就失败了，页面可能啥也出不来，这就看当前页面的耦合程度了
 
-```
+```javascript
 function promiseAll(promises) {
   return new Promise(function(resolve, reject) {
     if(!Array.isArray(promises)){
@@ -570,7 +570,7 @@ xhr.send(null);
 
 ### 16. 使用Promise封装AJAX请求
 
-```
+```javascript
 // promise 封装实现：
 function getJSON(url) {
   // 创建一个 promise 对象
