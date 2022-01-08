@@ -178,9 +178,9 @@ DOCTYPE 是 HTML5 中一种标准通用标记语言的文档类型声明，它�
 - range ： 可以提供给一个范围，其中可以设置 max 和 min 以及 value，其中 value 属性可以设置为默认值
 - color ： 提供了一个颜色拾取器
 - time ： 时分秒
-- data ： 日期选择年月日
-- datatime ： 时间和日期(目前只有 Safari 支持)
-- datatime-local ：日期时间控件
+- date ： 日期选择年月日
+- datetime ： 时间和日期(目前只有 Safari 支持)
+- datetime-local ：日期时间控件
 - week ：周控件
 - month：月控件
 
