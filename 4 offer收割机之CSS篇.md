@@ -7,7 +7,7 @@
 | **选择器**     | **格式**      | **优先级权重** |
 | -------------- | ------------- | -------------- |
 | id 选择器      | #id           | 100            |
-| 类选择器       | .classname    | 10             |
+| 类选择器       | #classname    | 10             |
 | 属性选择器     | a[ref=“eee”]  | 10             |
 | 伪类选择器     | li:last-child | 10             |
 | 标签选择器     | div           | 1              |
@@ -590,6 +590,13 @@ z-index 属性在下列情况下会失效：
 - 元素在设置 z-index 的同时还设置了 float 浮动。解决：float 去除，改为 display：inline-block；
 
 ### 31. CSS3 中的 transform 有哪些属性
+
+
+- translate 位移
+- rotate 旋转
+- scale 缩放
+- skew 斜切
+
 
 ## 二、页面布局
 
