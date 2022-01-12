@@ -18,7 +18,7 @@ JavaScript共有八种数据类型，分别是 Undefined、Null、Boolean、Numb
 
 这些数据可以分为原始数据类型和引用数据类型：
 
-- 栈：原始数据类型（Undefined、Null、Boolean、Number、String）
+- 栈：原始数据类型（Undefined、Null、Boolean、Number、String、Symbol、BigInt）
 - 堆：引用数据类型（对象、数组和函数）
 
 
