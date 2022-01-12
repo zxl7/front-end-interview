@@ -63,7 +63,7 @@ console.log(typeof null);            // object
 
 **（2）instanceof**
 
-`instanceof`可以正确判断对象的类型，**其内部运行机制是****判断在其原型链中能否找到该类型的原型**。
+`instanceof`可以正确判断对象的类型，**其内部运行机制是判断在其原型链中能否找到该类型的原型**。
 
 ```
 console.log(2 instanceof Number);                    // false
