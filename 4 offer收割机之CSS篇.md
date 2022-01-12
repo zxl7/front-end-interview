@@ -221,8 +221,8 @@ CSS3 中的盒模型有以下两种：标准盒子模型、IE 盒子模型
 
 可以通过修改元素的 box-sizing 属性来改变元素的盒模型：
 
-- `box-sizeing: content-box`表示标准盒模型（默认值）
-- `box-sizeing: border-box`表示 IE 盒模型（怪异盒模型）
+- `box-sizing: content-box`表示标准盒模型（默认值）
+- `box-sizing: border-box`表示 IE 盒模型（怪异盒模型）
 
 ### 12. 为什么有时候⽤**translate**来改变位置⽽不是定位？
 
@@ -590,6 +590,13 @@ z-index 属性在下列情况下会失效：
 - 元素在设置 z-index 的同时还设置了 float 浮动。解决：float 去除，改为 display：inline-block；
 
 ### 31. CSS3 中的 transform 有哪些属性
+
+- translate 位移
+- rotate 旋转
+- scale 缩放
+- skew 斜切
+
+> 更多细节补充：
 
 > 参考 [MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform) [菜鸟教程](https://www.runoob.com/cssref/css3-pr-transform.html) 
 

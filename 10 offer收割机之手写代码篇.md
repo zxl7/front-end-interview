@@ -1186,7 +1186,7 @@ function sumBigNumber(a, b) {
 
 - 首先用字符串的方式来保存大数，这样数字在数学表示上就不会发生变化
 - 初始化res，temp来保存中间的计算结果，并将两个字符串转化为数组，以便进行每一位的加法运算
-- 将两个数组的对应的位进行相加，两个数相加的结果可能大于10，所以可能要仅为，对10进行取余操作，将结果保存在当前位
+- 将两个数组的对应的位进行相加，两个数相加的结果可能大于10，所以可能要进位，对10进行取余操作，将结果保存在当前位
 - 判断当前位是否大于9，也就是是否会进位，若是则将temp赋值为true，因为在加法运算中，true会自动隐式转化为1，以便于下一次相加
 - 重复上述操作，直至计算结束
 
@@ -1533,7 +1533,7 @@ const task = (timer, light) =>
 const step = () => {
     task(3000, 'red')
         .then(() => task(2000, 'green'))
-        .then(() => task(2100, 'yellow'))
+        .then(() => task(1000, 'yellow'))
         .then(step)
 }
 step()
@@ -1547,7 +1547,7 @@ step()
 const taskRunner =  async () => {
     await task(3000, 'red')
     await task(2000, 'green')
-    await task(2100, 'yellow')
+    await task(1000, 'yellow')
     taskRunner()
 }
 taskRunner()
