@@ -508,7 +508,7 @@ self.addEventListener('fetch', e => {
 上面已经说到了，命中协商缓存的条件有两个：
 
 - `max-age=xxx` 过期了
-- 值为`no-store`
+- 值为`no-cache`
 
 
 
