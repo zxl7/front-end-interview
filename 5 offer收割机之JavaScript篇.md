@@ -40,7 +40,7 @@ JavaScript共有八种数据类型，分别是 Undefined、Null、Boolean、Numb
 在操作系统中，内存被分为栈区和堆区：
 
 - 栈区内存由编译器自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。 
-- 堆区内存一般由开发着分配释放，若开发者不释放，程序结束时可能由垃圾回收机制回收。
+- 堆区内存一般由开发者分配释放，若开发者不释放，程序结束时可能由垃圾回收机制回收。
 
 ### 2. 数据类型检测的方式有哪些
 
@@ -143,7 +143,7 @@ obj.__proto__ === Array.prototype;
 - 通过ES6的Array.isArray()做判断
 
 ```
-Array.isArrray(obj);
+Array.isArray(obj);
 ```
 
 - 通过instanceof做判断
