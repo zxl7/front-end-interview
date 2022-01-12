@@ -90,7 +90,7 @@ console.log((function() {}).constructor === Function); // true
 console.log(({}).constructor === Object); // true
 ```
 
-`constructor`有两个作用，一是判断数据的类型，二是对象实例通过 `constrfixcutor` 对象访问它的构造函数。需要注意，如果创建一个对象来改变它的原型，`constructor`就不能用来判断数据类型了：
+`constructor`有两个作用，一是判断数据的类型，二是对象实例通过 `constructor` 对象访问它的构造函数。需要注意，如果创建一个对象来改变它的原型，`constructor`就不能用来判断数据类型了：
 
 ```
 function Fn(){};
