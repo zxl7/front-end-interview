@@ -1008,7 +1008,7 @@ flex 布局是 CSS3 新增的一种布局方式，可以通过将一个元素的
 
 关于原理： 基本原理是通过媒体查询`（@media）`查询检测不同的设备屏幕尺寸做处理。
 
-关于兼容： 页面头部必须有 mate 声明的`viewport`。
+关于兼容： 页面头部必须有 meta 声明的`viewport`。
 
 ```
 <meta name="’viewport’" content="”width=device-width," initial-scale="1." maximum-scale="1,user-scalable=no”"/>
