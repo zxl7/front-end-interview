@@ -1008,7 +1008,7 @@ flex 布局是 CSS3 新增的一种布局方式，可以通过将一个元素的
 
 关于原理： 基本原理是通过媒体查询`（@media）`查询检测不同的设备屏幕尺寸做处理。
 
-关于兼容： 页面头部必须有 mate 声明的`viewport`。
+关于兼容： 页面头部必须有 meta 声明的`viewport`。
 
 ```
 <meta name="’viewport’" content="”width=device-width," initial-scale="1." maximum-scale="1,user-scalable=no”"/>
@@ -1236,7 +1236,7 @@ position 有以下属性值：
 
 **不同点：**
 
-- abuselute 与 fixed 的根元素不同，abuselute 的根元素可以设置，fixed 根元素是浏览器。
+- absolute 与 fixed 的根元素不同，absolute 的根元素可以设置，fixed 根元素是浏览器。
 - 在有滚动条的页面中，absolute 会跟着父元素进行移动，fixed 固定在页面的具体位置。
 
 ### 9. 对 sticky 定位的理解---了解即可
@@ -1347,7 +1347,7 @@ div {
 div{
     border: 100px solid transparent;
     width: 0;
-    heigt: 0;
+    height: 0;
     border-radius: 100px;
     border-top-color: red;
 }
