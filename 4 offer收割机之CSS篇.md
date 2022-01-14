@@ -11,7 +11,7 @@
 | 属性选择器     | a[ref=“eee”]  | 10             |
 | 伪类选择器     | li:last-child | 10             |
 | 标签选择器     | div           | 1              |
-| 伪元素选择器   | li:after      | 1              |
+| 伪元素选择器   | li::after     | 1              |
 | 相邻兄弟选择器 | h1+p          | 0              |
 | 子选择器       | ul>li         | 0              |
 | 后代选择器     | li a          | 0              |
@@ -145,14 +145,14 @@
 
 ### 8. display:none 与 visibility:hidden 的区别
 
-这两个属性都是让元素隐藏，不可见。**两者\*\***区别如下：\*\*
+这两个属性都是让元素隐藏，不可见。两者**区别如下：**
 
 （1）**在渲染树中**
 
 - `display:none`会让元素完全从渲染树中消失，渲染时不会占据任何空间；
 - `visibility:hidden`不会让元素从渲染树中消失，渲染的元素还会占据相应的空间，只是内容不可见。
 
-（2）**是否是\*\***继承属性\*\*
+（2）是否是**继承属性**
 
 - `display:none`是非继承属性，子孙节点会随着父节点从渲染树消失，通过修改子孙节点的属性也无法显示；
 - `visibility:hidden`是继承属性，子孙节点消失是由于继承了`hidden`，通过设置`visibility:visible`可以让子孙节点显示；
@@ -165,7 +165,7 @@
 
 - 伪元素：在内容元素的前后插入额外的元素或样式，但是这些元素实际上并不在文档中生成。它们只在外部显示可见，但不会在文档的源代码中找到它们，因此，称为“伪”元素。例如：
 
-```
+```css
 p::before {content:"第一章：";}
 p::after {content:"Hot!";}
 p::first-line {background:red;}
@@ -174,7 +174,7 @@ p::first-letter {font-size:30px;}
 
 - 伪类：将特殊的效果添加到特定选择器上。它是已有元素上添加类别的，不会产生新的元素。例如：
 
-```
+```css
 a:hover {color: #FF00FF}
 p:first-child {color: red}
 ```
@@ -187,7 +187,7 @@ p:first-child {color: red}
 
 MDN 对该方法的描述：
 
-> window.requestAnimationFrame() 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行。
+> `window.requestAnimationFrame()` 告诉浏览器——你希望执行一个动画，并且要求浏览器在下次重绘之前调用指定的回调函数更新动画。该方法需要传入一个回调函数作为参数，该回调函数会在浏览器下一次重绘之前执行。
 
 **语法：** `window.requestAnimationFrame(callback);` 其中，callback 是**下一次重绘之前更新动画帧所调用的函数**(即上面所说的回调函数)。该回调函数会被传入 DOMHighResTimeStamp 参数，它表示 requestAnimationFrame() 开始去执行回调函数的时刻。该方法属于**宏任务**，所以会在执行完微任务之后再去执行。
 
@@ -244,7 +244,7 @@ translate 是 transform 属性的⼀个值。改变 transform 或 opacity 不会
 
 ### 14. CSS3 中有哪些新特性
 
-- 新增各种 CSS 选择器 （: not(.input)：所有 class 不是“input”的节点）
+- 新增各种 CSS 选择器 （`: not(.input)`：所有 class 不是“input”的节点）
 - 圆角 （border-radius:8px）
 - 多列布局 （multi-column layout）
 - 阴影和反射 （Shadoweflect）
@@ -334,7 +334,7 @@ CSSSprites（精灵图），将一个页面涉及到的所有图片都包含到�
 
 还可以使用 CSS 媒体查询来判断不同的像素密度，从而选择不同的图片:
 
-```
+```css
 my-image { background: (low.png); }
 @media only screen and (min-device-pixel-ratio: 1.5) {
   #my-image { background: (high.png); }
@@ -451,7 +451,7 @@ my-image { background: (low.png); }
 
 - 单行文本溢出
 
-```
+```css
 overflow: hidden;            // 溢出隐藏
 text-overflow: ellipsis;      // 溢出用省略号显示
 white-space: nowrap;         // 规定段落中的文本不进行换行
@@ -459,7 +459,7 @@ white-space: nowrap;         // 规定段落中的文本不进行换行
 
 - 多行文本溢出
 
-```
+```css
 overflow: hidden;            // 溢出隐藏
 text-overflow: ellipsis;     // 溢出用省略号显示
 display:-webkit-box;         // 作为弹性伸缩盒子模型显示。
@@ -467,7 +467,7 @@ display:-webkit-box;         // 作为弹性伸缩盒子模型显示。
 -webkit-line-clamp:3;        // 显示的行数
 ```
 
-注意：由于上面的三个属性都是 CSS3 的属性，没有浏览器可以兼容，所以要在前面加一个`-webkit-` 来兼容一部分浏览器。
+注意：由于上面的三个属性都是 CSS3 的属性，不是所有浏览器都可以兼容，所以要在前面加一个`-webkit-` 来兼容一部分浏览器。
 
 ### 26. Sass、Less 是什么？为什么要使用他们？
 
@@ -484,7 +484,7 @@ display:-webkit-box;         // 作为弹性伸缩盒子模型显示。
 
 媒体查询包含⼀个可选的媒体类型和满⾜ CSS3 规范的条件下，包含零个或多个表达式，这些表达式描述了媒体特征，最终会被解析为 true 或 false。如果媒体查询中指定的媒体类型匹配展示⽂档所使⽤的设备类型，并且所有的表达式的值都是 true，那么该媒体查询的结果为 true。那么媒体查询内的样式将会⽣效。
 
-```
+```css
 <!-- link元素中的CSS媒体查询 -->
 <link rel="stylesheet" media="(max-width: 800px)" href="example.css" />
 <!-- 样式表中的CSS媒体查询 -->
@@ -591,12 +591,42 @@ z-index 属性在下列情况下会失效：
 
 ### 31. CSS3 中的 transform 有哪些属性
 
-
 - translate 位移
 - rotate 旋转
 - scale 缩放
 - skew 斜切
 
+> 更多细节补充：
+
+> 参考 [MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform) [菜鸟教程](https://www.runoob.com/cssref/css3-pr-transform.html) 
+
+CSS**`transform`**属性允许你<u>旋转，缩放，倾斜或平移</u>给定元素。这是通过修改CSS视觉格式化模型的坐标空间来实现的。`transform`属性可以指定为关键字值`none` 或一个或多个[`<transform-function>`](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function)值。
+
+ **`<transform-function>`** CSS数据类型用于对元素的显示做变换。通常，这种变换可以由矩阵表示，并且可以使用每个点上的矩阵乘法来确定所得到的图像。下面简单展示下`<transform-function>`值都有哪些（来自菜鸟教程，如果想要了解细则请点击[这里](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function)进入MDN官方文档）
+
+| none                                                         | 定义不进行转换。                        |
+| ------------------------------------------------------------ | --------------------------------------- |
+| **matrix(*n*,*n*,*n*,*n*,*n*,*n*)**                          | 定义 2D 转换，使用六个值的矩阵。        |
+| matrix3d(*n*,*n*,*n*,*n*,*n*,*n*,*n*,*n*,*n*,*n*,*n*,*n*,*n*,*n*,*n*,*n*) | 定义 3D 转换，使用 16 个值的 4x4 矩阵。 |
+| **translate(*x*,*y*)**                                       | 定义 2D 转换。（平移）                  |
+| translate3d(*x*,*y*,*z*)                                     | 定义 3D 转换。                          |
+| translateX(*x*)                                              | 定义转换，只是用 X 轴的值。             |
+| translateY(*y*)                                              | 定义转换，只是用 Y 轴的值。             |
+| translateZ(*z*)                                              | 定义 3D 转换，只是用 Z 轴的值。         |
+| **scale(*x*,*y*)**                                           | 定义 2D 缩放转换。                      |
+| scale3d(*x*,*y*,*z*)                                         | 定义 3D 缩放转换。                      |
+| scaleX(*x*)                                                  | 通过设置 X 轴的值来定义缩放转换。       |
+| scaleY(*y*)                                                  | 通过设置 Y 轴的值来定义缩放转换。       |
+| scaleZ(*z*)                                                  | 通过设置 Z 轴的值来定义 3D 缩放转换。   |
+| **rotate(*angle*)**                                          | 定义 2D 旋转，在参数中规定角度。        |
+| rotate3d(*x*,*y*,*z*,*angle*)                                | 定义 3D 旋转。                          |
+| rotateX(*angle*)                                             | 定义沿着 X 轴的 3D 旋转。               |
+| rotateY(*angle*)                                             | 定义沿着 Y 轴的 3D 旋转。               |
+| rotateZ(*angle*)                                             | 定义沿着 Z 轴的 3D 旋转。               |
+| **skew(*x-angle*,*y-angle*)**                                | 定义沿着 X 和 Y 轴的 2D 倾斜转换。      |
+| skewX(*angle*)                                               | 定义沿着 X 轴的 2D 倾斜转换。           |
+| skewY(*angle*)                                               | 定义沿着 Y 轴的 2D 倾斜转换。           |
+| perspective(*n*)                                             | 为 3D 转换元素定义透视视图。            |
 
 ## 二、页面布局
 
@@ -647,7 +677,7 @@ z-index 属性在下列情况下会失效：
 
 - 利用浮动，将左边元素宽度设置为 200px，并且设置向左浮动。将右边元素的 margin-left 设置为 200px，宽度设置为 auto（默认为 auto，撑满整个父元素）。
 
-```
+```css
 .outer {
   height: 100px;
 }
@@ -665,7 +695,7 @@ z-index 属性在下列情况下会失效：
 
 - 利用浮动，左侧元素设置固定大小，并左浮动，右侧元素设置 overflow: hidden; 这样右边就触发了 BFC，BFC 的区域不会与浮动元素发生重叠，所以两侧就不会发生重叠。
 
-```
+```css
 .left{
      width: 100px;
      height: 200px;
@@ -681,7 +711,7 @@ z-index 属性在下列情况下会失效：
 
 - 利用 flex 布局，将左边元素设置为固定宽度 200px，将右边的元素设置为 flex:1。
 
-```
+```css
 .outer {
   display: flex;
   height: 100px;
@@ -698,7 +728,7 @@ z-index 属性在下列情况下会失效：
 
 - 利用绝对定位，将父级元素设置为相对定位。左边元素设置为 absolute 定位，并且宽度设置为 200px。将右边元素的 margin-left 的值设置为 200px。
 
-```
+```css
 .outer {
   position: relative;
   height: 100px;
@@ -717,7 +747,7 @@ z-index 属性在下列情况下会失效：
 
 - 利用绝对定位，将父级元素设置为相对定位。左边元素宽度设置为 200px，右边元素设置为绝对定位，左边定位为 200px，其余方向定位为 0。
 
-```
+```css
 .outer {
   position: relative;
   height: 100px;
@@ -742,7 +772,7 @@ z-index 属性在下列情况下会失效：
 
 - 利用**绝对定位**，左右两栏设置为绝对定位，中间设置对应方向大小的 margin 的值。
 
-```
+```css
 .outer {
   position: relative;
   height: 100px;
@@ -774,7 +804,7 @@ z-index 属性在下列情况下会失效：
 
 - 利用 flex 布局，左右两栏设置固定大小，中间一栏设置为 flex:1。
 
-```
+```css
 .outer {
   display: flex;
   height: 100px;
@@ -798,7 +828,7 @@ z-index 属性在下列情况下会失效：
 
 - 利用浮动，左右两栏设置固定大小，并设置对应方向的浮动。中间一栏设置左右两个方向的 margin 值，注意这种方式**，中间一栏必须放到最后：**
 
-```
+```css
 .outer {
   height: 100px;
 }
@@ -827,7 +857,7 @@ z-index 属性在下列情况下会失效：
 
 - 圣杯布局，利用浮动和负边距来实现。父级元素设置左右的 padding，三列均设置向左浮动，中间一列放在最前面，宽度设置为父级元素的宽度，因此后面两列都被挤到了下一行，通过设置 margin 负值将其移动到上一行，再利用相对定位，定位到两边。
 
-```
+```css
 .outer {
   height: 100px;
   padding-left: 100px;
@@ -869,7 +899,7 @@ z-index 属性在下列情况下会失效：
 
 - 双飞翼布局，双飞翼布局相对于圣杯布局来说，左右位置的保留是通过中间列的 margin 值来实现的，而不是通过父元素的 padding 来实现的。本质上来说，也是通过浮动和外边距负值来实现的。
 
-```
+```css
 .outer {
   height: 100px;
 }
@@ -907,11 +937,11 @@ z-index 属性在下列情况下会失效：
 }
 ```
 
-### 水平垂直居中的实现
+### 5.水平垂直居中的实现
 
 - 利用绝对定位，先将元素的左上角通过 top:50%和 left:50%定位到页面的中心，然后再通过 translate 来调整元素的中心点到页面的中心。该方法需要**考虑浏览器兼容问题。**
 
-```
+```css
 .parent {
     position: relative;
 }
@@ -926,7 +956,7 @@ z-index 属性在下列情况下会失效：
 
 - 利用绝对定位，设置四个方向的值都为 0，并将 margin 设置为 auto，由于宽高固定，因此对应方向实现平分，可以实现水平和垂直方向上的居中。该方法适用于**盒子有宽高**的情况：
 
-```
+```css
 .parent {
     position: relative;
 }
@@ -943,7 +973,7 @@ z-index 属性在下列情况下会失效：
 
 - 利用绝对定位，先将元素的左上角通过 top:50%和 left:50%定位到页面的中心，然后再通过 margin 负值来调整元素的中心点到页面的中心。该方法适用于**盒子宽高已知**的情况
 
-```
+```css
 .parent {
     position: relative;
 }
@@ -959,13 +989,28 @@ z-index 属性在下列情况下会失效：
 
 - 使用 flex 布局，通过 align-items:center 和 justify-content:center 设置容器的垂直和水平方向上为居中对齐，然后它的子元素也可以实现垂直和水平的居中。该方法要**考虑兼容的问题**，该方法在移动端用的较多：
 
-```
+```css
 .parent {
     display: flex;
     justify-content:center;
     align-items:center;
 }
 ```
+
+另外，如果父元素设置了flex布局，只需要给子元素加上`margin:auto;`就可以实现垂直居中布局
+
+```css
+.parent{
+    display:flex;
+}
+.child{
+    margin: auto;
+}
+```
+
+这里蛮有意思的 如果不在弹性布局中 `margin:auto;`只能做到水平居中
+
+这其中的道理可以看[这篇文章](https://link.juejin.cn?target=https%3A%2F%2Fblog.csdn.net%2Fwuguidian1114%2Farticle%2Fdetails%2F105559117)了解一下（具体就是与auto的定义有关）
 
 ### 6. 如何根据设计稿进行移动端适配？
 
@@ -1010,7 +1055,7 @@ flex 布局是 CSS3 新增的一种布局方式，可以通过将一个元素的
 
 关于兼容： 页面头部必须有 meta 声明的`viewport`。
 
-```
+```html
 <meta name="’viewport’" content="”width=device-width," initial-scale="1." maximum-scale="1,user-scalable=no”"/>
 ```
 
@@ -1040,7 +1085,7 @@ flex 布局是 CSS3 新增的一种布局方式，可以通过将一个元素的
 - 包含浮动元素的父级标签添加`overflow:hidden`或者`overflow:auto`
 - 使用 :after 伪元素。由于 IE6-7 不支持 :after，使用 zoom:1 触发 hasLayout\*\*
 
-```
+```css
 .clearfix:after{
     content: "\200B";
     display: table;
@@ -1056,7 +1101,7 @@ flex 布局是 CSS3 新增的一种布局方式，可以通过将一个元素的
 
 使用 clear 属性清除浮动，其语法如下：
 
-```
+```css
 clear:none|left|right|both
 ```
 
@@ -1068,7 +1113,7 @@ clear:none|left|right|both
 
 一般使用伪元素的方式清除浮动：
 
-```
+```css
 .clear::after{
   content:'';
   display: block;
@@ -1112,7 +1157,7 @@ clear 属性只有块级元素才有效的，而::after 等伪元素默认都是
 - **解决高度塌陷的问题**：在对子元素设置浮动后，父元素会发生高度塌陷，也就是父元素的高度变为 0。解决这个问题，只需要把父元素变成一个 BFC。常用的办法是给父元素设置`overflow:hidden`。
 - **创建自适应两栏布局**：可以用来创建自适应两栏布局：左边的宽度固定，右边的宽度自适应。
 
-```
+```css
 .left{
      width: 100px;
      height: 200px;
@@ -1253,7 +1298,7 @@ CSS 绘制三角形主要用到的是 border 属性，也就是边框。
 
 平时在给盒子设置边框时，往往都设置很窄，就可能误以为边框是由矩形组成的。实际上，border 属性是右三角形组成的，下面看一个例子：
 
-```
+```css
 div {
     width: 0;
     height: 0;
@@ -1270,7 +1315,7 @@ div {
 
 **（1）三角 1**
 
-```
+```css
 div {
     width: 0;
     height: 0;
@@ -1284,7 +1329,7 @@ div {
 
 **（2）三角 2**
 
-```
+```css
 div {
     width: 0;
     height: 0;
@@ -1298,7 +1343,7 @@ div {
 
 **（3）三角 3**
 
-```
+```css
 div {
     width: 0;
     height: 0;
@@ -1312,7 +1357,7 @@ div {
 
 **（4）三角 4**
 
-```
+```css
 div {
     width: 0;
     height: 0;
@@ -1326,7 +1371,7 @@ div {
 
 **（5）三角 5**
 
-```
+```css
 div {
     width: 0;
     height: 0;
@@ -1343,7 +1388,7 @@ div {
 
 用 CSS 实现扇形的思路和三角形基本一致，就是多了一个圆角的样式，实现一个 90° 的扇形：
 
-```
+```css
 div{
     border: 100px solid transparent;
     width: 0;
@@ -1359,7 +1404,7 @@ div{
 
 - 利用 vw 来实现：
 
-```
+```css
 .square {
   width: 10%;
   height: 10vw;
@@ -1369,7 +1414,7 @@ div{
 
 - 利用元素的 margin/padding 百分比是相对父元素 width 的性质来实现：
 
-```
+```css
 .square {
   width: 20%;
   height: 0;
@@ -1380,7 +1425,7 @@ div{
 
 - 利用子元素的 margin-top 的值来实现：
 
-```
+```css
 .square {
   width: 30%;
   overflow: hidden;
@@ -1397,13 +1442,13 @@ div{
 
 - **采用 transform: scale()的方式**，该方法用来定义元素的 2D 缩放转换：
 
-```
+```css
 transform: scale(0.5,0.5);
 ```
 
 - **采用 meta viewport 的方式**
 
-```
+```html
 <meta name="viewport" content="width=device-width, initial-scale=0.5, minimum-scale=0.5, maximum-scale=0.5"/>
 ```
 
@@ -1423,7 +1468,7 @@ transform: scale(0.5,0.5);
 
 1px 问题指的是：在一些 `Retina屏幕` 的机型上，移动端页面的 1px 会变得很粗，呈现出不止 1px 的效果。原因很简单——CSS 中的 1px 并不能和移动设备上的 1px 划等号。它们之间的比例关系有一个专门的属性来描述：
 
-```
+```js
 window.devicePixelRatio = 设备的物理像素 / CSS像素。
 ```
 
@@ -1439,19 +1484,19 @@ window.devicePixelRatio = 设备的物理像素 / CSS像素。
 
 如果之前 1px 的样式这样写：
 
-```
+```css
 border:1px solid #333
 ```
 
 可以先在 JS 中拿到 window.devicePixelRatio 的值，然后把这个值通过 JSX 或者模板语法给到 CSS 的 data 里，达到这样的效果（这里用 JSX 语法做示范）：
 
-```
+```html
 <div id="container" data-device={{window.devicePixelRatio}}></div>
 ```
 
 然后就可以在 CSS 中用属性选择器来命中 devicePixelRatio 为某一值的情况，比如说这里尝试命中 devicePixelRatio 为 2 的情况：
 
-```
+```css
 #container[data-device="2"] {
   border:0.5px solid #333
 }
@@ -1467,7 +1512,7 @@ border:1px solid #333
 
 代码如下：
 
-```
+```css
 #container[data-device="2"] {
     position: relative;
 }
@@ -1490,13 +1535,13 @@ border:1px solid #333
 
 这个思路就是对 meta 标签里几个关键属性下手：
 
-```
+```html
 <meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
 ```
 
 这里针对像素比为 2 的页面，把整个页面缩放为了原来的 1/2 大小。这样，本来占用 2 个物理像素的 1px 样式，现在占用的就是标准的一个物理像素。根据像素比的不同，这个缩放比例可以被计算为不同的值，用 js 代码实现如下：
 
-```
+```js
 const scale = 1 / window.devicePixelRatio;
 // 这里 metaEl 指的是 meta 标签对应的 Dom
 metaEl.setAttribute('content', `width=device-width,user-scalable=no,initial-scale=${scale},maximum-scale=${scale},minimum-scale=${scale}`);

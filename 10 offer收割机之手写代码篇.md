@@ -266,7 +266,7 @@ then(onFulfilled, onReject){
 
 一般来说，Promise.all 用来处理多个并发请求，也是为了页面数据构造的方便，将一个页面所用到的在不同接口的数据一起请求过来，不过，如果其中一个接口失败了，多个请求也就失败了，页面可能啥也出不来，这就看当前页面的耦合程度了
 
-```
+```javascript
 function promiseAll(promises) {
   return new Promise(function(resolve, reject) {
     if(!Array.isArray(promises)){
@@ -570,7 +570,7 @@ xhr.send(null);
 
 ### 16. 使用Promise封装AJAX请求
 
-```
+```javascript
 // promise 封装实现：
 function getJSON(url) {
   // 创建一个 promise 对象
@@ -619,7 +619,7 @@ function getJSON(url) {
 - 如果该函数只有一个参数，当参数为对象时，直接返回该对象；当参数不是对象时，会先将参数转为对象然后返回。
 - 因为`null` 和 `undefined` 不能转化为对象，所以第一个参数不能为`null`或 `undefined`，会报错。
 
-```
+```javascript
 let target = {a: 1};
 let object2 = {b: 2};
 let object3 = {c: 3};
@@ -631,7 +631,7 @@ console.log(target);  // {a: 1, b: 2, c: 3}
 
 使用扩展运算符可以在构造字面量对象的时候，进行属性的拷贝。语法：`let cloneObj = { ...obj };`
 
-```
+```javascript
 let obj1 = {a:1,b:{c:1}}
 let obj2 = {...obj1};
 obj1.a = 2;
@@ -649,7 +649,7 @@ console.log(obj2); //{a:1,b:{c:2}}
 - `slice()`方法是JavaScript数组的一个方法，这个方法可以从已有数组中返回选定的元素：用法：`array.slice(start, end)`，该方法不会改变原始数组。
 - 该方法有两个参数，两个参数都可选，如果两个参数都不写，就可以实现一个数组的浅拷贝。
 
-```
+```javascript
 let arr = [1,2,3,4];
 console.log(arr.slice()); // [1,2,3,4]
 console.log(arr.slice() === arr); //false
@@ -660,7 +660,7 @@ console.log(arr.slice() === arr); //false
 - `concat()` 方法用于合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。
 - 该方法有两个参数，两个参数都可选，如果两个参数都不写，就可以实现一个数组的浅拷贝。
 
-```
+```javascript
 let arr = [1,2,3,4];
 console.log(arr.concat()); // [1,2,3,4]
 console.log(arr.concat() === arr); //false
@@ -668,7 +668,7 @@ console.log(arr.concat() === arr); //false
 
 #### （4）手写实现浅拷贝
 
-```
+```javascript
 // 浅拷贝的实现;
 
 function shallowCopy(object) {
@@ -731,7 +731,7 @@ function shallowCopy(object) {
 - `JSON.parse(JSON.stringify(obj))`是目前比较常用的深拷贝方法之一，它的原理就是利用`JSON.stringify` 将`js`对象序列化（JSON字符串），再使用`JSON.parse`来反序列化(还原)`js`对象。
 - 这个方法可以简单粗暴的实现深拷贝，但是还存在问题，拷贝的对象中如果有函数，undefined，symbol，当使用过`JSON.stringify()`进行处理之后，都会消失。
 
-```
+```javascript
 let obj1 = {  a: 0,
               b: {
                  c: 0
@@ -748,7 +748,7 @@ console.log(obj2); // {a: 0, b: {c: 0}}
 
 该函数库也有提供_.cloneDeep用来做 Deep Copy
 
-```
+```javascript
 var _ = require('lodash');
 var obj1 = {
     a: 1,
@@ -761,7 +761,7 @@ console.log(obj1.b.f === obj2.b.f);// false
 
 #### （3）手写实现深拷贝函数
 
-```
+```javascript
 // 深拷贝的实现
 function deepCopy(object) {
   if (!object || typeof object !== "object") return;
@@ -1011,7 +1011,7 @@ function uniqueArray(array) {
 
 ### 7. 实现数组的flat方法
 
-```
+```javascript
 function _flat(arr, depth) {
   if(!Array.isArray(arr) || depth <= 0) {
     return arr;
