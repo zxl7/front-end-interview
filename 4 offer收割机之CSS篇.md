@@ -1236,7 +1236,7 @@ position 有以下属性值：
 
 **不同点：**
 
-- abuselute 与 fixed 的根元素不同，abuselute 的根元素可以设置，fixed 根元素是浏览器。
+- absolute 与 fixed 的根元素不同，absolute 的根元素可以设置，fixed 根元素是浏览器。
 - 在有滚动条的页面中，absolute 会跟着父元素进行移动，fixed 固定在页面的具体位置。
 
 ### 9. 对 sticky 定位的理解---了解即可
