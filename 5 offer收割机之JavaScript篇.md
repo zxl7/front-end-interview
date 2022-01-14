@@ -18,7 +18,7 @@ JavaScript共有八种数据类型，分别是 Undefined、Null、Boolean、Numb
 
 这些数据可以分为原始数据类型和引用数据类型：
 
-- 栈：原始数据类型（Undefined、Null、Boolean、Number、String）
+- 栈：原始数据类型（Undefined、Null、Boolean、Number、String、Symbol、BigInt）
 - 堆：引用数据类型（对象、数组和函数）
 
 
@@ -63,7 +63,7 @@ console.log(typeof null);            // object
 
 **（2）instanceof**
 
-`instanceof`可以正确判断对象的类型，**其内部运行机制是****判断在其原型链中能否找到该类型的原型**。
+`instanceof`可以正确判断对象的类型，**其内部运行机制是判断在其原型链中能否找到该类型的原型**。
 
 ```javascript
 console.log(2 instanceof Number);                    // false
@@ -90,7 +90,7 @@ console.log((function() {}).constructor === Function); // true
 console.log(({}).constructor === Object); // true
 ```
 
-`constructor`有两个作用，一是判断数据的类型，二是对象实例通过 `constrcutor` 对象访问它的构造函数。需要注意，如果创建一个对象来改变它的原型，`constructor`就不能用来判断数据类型了：
+`constructor`有两个作用，一是判断数据的类型，二是对象实例通过 `constructor` 对象访问它的构造函数。需要注意，如果创建一个对象来改变它的原型，`constructor`就不能用来判断数据类型了：
 
 ```javascript
 function Fn(){};
